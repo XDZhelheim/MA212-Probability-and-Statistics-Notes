@@ -219,7 +219,6 @@
      $$
      P(\bigcup_{i=1}^n A_i)=\sum_{i=1}^nP(A_i)
      $$
-     
 3. 若 $A\subset B$ 则
   
    * $P(B\backslash A)=P(B)-P(A)$
@@ -250,13 +249,13 @@
      P(A_1\cup A_2\cup\cdots A_n)=\sum_{i=1}^nP(A_i)-\sum_{1\leqslant i\leqslant j\leqslant n}P(A_iA_j)+\sum_{1\leqslant i\leqslant j\leqslant k\leqslant n}P(A_iA_jA_k)-\cdots+(-1)^{n-1}P(A_1A_2\cdots A_n)
      $$
      规律：加奇减偶
-  
+
 例：已知空气中 PM 2.5 含量一般在 $0$ 到 $120\ \mu g/m^3$, SO~2~ 含量一般在 $0$ 到 $0.304\ ppm$ 之间，PM 2.5 含量在 $100.5\ \mu g/m^3$ 或 SO~2~ 含量在 $0.205\ ppm$ 以上，则认为空气有害。求空气有害的概率
-  
+
 几何概型
-  
+
 ![](./images/1-3-1.png)
-  
+
 $P(A)+P(B)-P(A\cap B)$
 
 ---
@@ -407,7 +406,7 @@ $P(A)+P(B)-P(A\cap B)$
 
    $\therefore P(A_k)=1-P(\overline{A_k})=1-\frac 1n(1-\frac 1n)^{k-1}$
 
-5. 掷 $n$ 课骰子，求出现点数最大为 5 的概率
+5. 掷 $n$ 颗骰子，求出现点数最大为 5 的概率
 
    设 $A=\{最大点数为5\}, B=\{最大点数不超过5\}, C=\{最大点数不超过4\}$
 
@@ -424,6 +423,243 @@ $P(A)+P(B)-P(A\cap B)$
 ---
 
 ### 1.5 条件概率
+
+* 定义
+
+  令 $A,B$ 表示两事件，且 $P(B)\neq 0$。给定事件 $B$ 发生的条件下 $A$ 发生的条件概率为
+  $$
+  P(A|B)=\frac{P(AB)}{P(B)}
+  $$
+  $A|B$ 不是一个事件
+
+* 性质
+
+  1. 非负性
+
+     $\forall A,P(A|B)\geqslant 0$
+
+  2. 规范性
+
+     必然事件 $\Omega$，$P(\Omega|B)=1$
+
+  3. 可列可加性
+
+     设 $\{A_k\}$ 为两两不相容的事件列，则
+     $$
+     P(\bigcup_{i=1}^\infin A_k|B)=\sum_{i=1}^\infin P(A_k|B)
+     $$
+
+  4. 条件概率也满足概率的公式
+
+     $P(A|B)=1-\overline P(A|B)$
+
+     $P(A\cup B|C)=P(A|C)+P(B|C)-P(AB|C)$
+
+* 乘法定律：求“$n$ 个事件同时发生的概率”
+
+  1. 定义
+
+     $P(AB)=P(A|B)P(B)=P(B|A)P(A)$
+
+  2. 推广
+
+     若 $P(A_1A_2\cdots A_n)>0$，则
+
+     $P(A_1A_2\cdots A_n)$
+
+     $=P(A_n|A_1A_2\cdots A_{n-1})P(A_1A_2\cdots A_{n-1})$
+
+     $=P(A_n|A_1A_2\cdots A_{n-1})P(A_{n-1}|A_1A_2\cdots A_{n-2})P(A_1A_2\cdots A_{n-2})$
+
+     $\cdots$
+
+     $=\cdots P(A_2|A_1)P(A_1)$
+
+* 全概率定律：求“最后结果”的概率
+
+  1. 样本空间的分划
+
+     设 $\Omega$ 为样本空间，若 $B_1, B_2, \dots, B_n$ 满足
+
+     1. 两两不相容
+     2. $B_1\cup B_2\cup\cdots\cup B_n=\Omega$
+
+     则称 $\{B_1, B_2,\dots, B_n\}$ 为样本空间的一个分划
+
+  2. 公式
+
+     $P(A)=\sum_{i=1}^n P(A|B_i)P(B_i)$
+
+     证明：
+
+     $A=A\cap \Omega=AB_1\cup AB_2\cup\cdots\cup AB_n$
+
+     $\therefore P(A)=P(AB_1)+P(AB_2)+\cdots+P(AB_n)$
+
+     $=P(A|B_1)P(B_1)+P(A|B_2)P(B_2)+\cdots+P(A|B_n)P(B_n)$
+
+     $=\sum_{i=1}^n P(A|B_i)P(B_i)$
+
+  * 例：10 件产品中有 3 件次品，从中不放回地取两次，求第二次取得次品的概率
+
+    解：
+
+    设 $A=\{第二次取得次品\}, B=\{第一次取得次品\}$
+
+    全概率公式：
+
+    $P(A)=P(A|B)P(B)+P(A|\overline B)P(\overline B)=\frac {3}{10}\times\frac 29+\frac{7}{10}\times\frac 39=0.3$
+
+* 贝叶斯公式：已知“最后结果”，求“原因”的概率
+
+  若 $B_1, B_2,\dots, B_n$ 为导致试验结果的原因，则称 $P(B_i)$ 为先验概率
+
+  若试验产生事件 $A$，则要探讨事件发生的原因 $P(B_i|A)$
+
+  称 $P(B_i|A)$ 为后验概率，$P(A|B_i)$ 为原因概率
+  $$
+  P(B_i|A)=\frac{P(A|B_i)P(B_i)}{\sum_{j=1}^nP(A|B_j)P(B_j)}=\frac{P(AB_i)}{P(A)}
+  $$
+  实际上就是条件概率的分子分母用乘法定律和全概率公式拆开
+
+  $发生A时发生B的概率=\frac{AB同时发生的概率}{发生A的概率}$
+
+  * 例 1：某工厂的三个车间，产量分别占 $15\%, 80\%, 5\%$，次品率为 $2\%, 1\%, 3\%$。现在任取一产品发现为次品，则该次品是哪个车间生产的可能性最大
+
+    解：
+
+    设 $A=\{取到次品\}$，$B=\{次品是第i个车间生产的\},i=1,2,3$
+
+    全概率公式：$P(A)=\sum_{i=1}^3P(A|B_i)P(B_i)=0.0125$
+
+    贝叶斯公式：
+
+    $P(B_1|A)=\frac{P(A|B_1)P(B_1)}{P(A)}=\frac{0.15\times0.02}{0.125}=0.24$
+
+    $P(B_2|A)=\frac{P(A|B_2)P(B_2)}{P(A)}=\frac{0.8\times0.01}{0.125}=0.64$
+
+    $P(B_3|A)=\frac{P(A|B_3)P(B_3)}{P(A)}=\frac{0.05\times0.03}{0.125}=0.12$
+
+    $\therefore$ 2 车间生产的可能性最大
+
+  * 例 2：某测谎仪，- 表示说真话，+ 表示测得说谎。T 表示人说的是真话，L 表示人在撒谎
+
+    已知 $P(+|L)=0.88, P(-|T)=0.86, P(T)=0.99$
+
+    若有一人测试时显示 +，求测谎仪出错的概率
+
+    解：
+
+    贝叶斯公式:
+    $$
+    P(T|+)=\frac{P(+|T)P(T)}{P(+|T)P(T)+P(+|L)P(L)}=\frac{(1-0.86)\times0.99}{(1-0.86)\times0.99+0.88\times(1-0.99)}=0.94
+    $$
+
+---
+
+### 1.6 独立性
+
+* 定义
+
+  若 $P(AB)=P(A)P(B)$，则称 $A, B$ 相互独立
+
+  * $A, B$ 独立，则 $\overline A, B; A, \overline B; \overline A, \overline B$ 相互独立
+
+  * $P(A|B)=P(A)$
+
+    $P(B|A)=P(B)$
+
+* 独立和互不相容的区别
+
+  * 互不相容
+
+    $A$ 发生，$B$ 就一定不发生，反之也是（要么就都别发生）
+
+    $P(A|B)=\frac{P(AB)}{P(B)}=0$
+
+  * 独立
+
+    $A$ 发生和 $B$ 发不发生没有任何关系
+
+    $P(A|B)=P(A)$
+
+  $A, B$ 不可能既独立又互不相容
+
+* 三个事件的独立性
+
+  两两独立且 $P(ABC)=P(A)P(B)P(C)$
+
+  * 若 $A, B, C$ 三三独立，则 $A\cup B, A\cap B, A\backslash B$ 都与 $C$ 独立
+
+* $n$ 个事件的独立性
+
+  若 $n$ 个事件 $A_1, A_2,\dots, A_n(n\geqslant2)$ 满足
+
+  * $P(A_{i_1}, A_{i_2}, \dots, A_{i_k})=P(A_{i_1})P(A_{i_2})\cdots P(A_{i_k})$
+  * $1\leqslant i_1\leqslant i_2\leqslant\cdots\leqslant i_k\leqslant n$
+  * $k=2, 3, \dots, n$
+
+  则 $A_1, A_2,\dots, A_n$ 相互独立
+
+  就是两两独立、三三独立、四四独立、... nn 独立才叫互相独立
+
+* $\Omega, \empty$ 与任何事件都相互独立
+
+* 若 $A, B$ 独立，$P(A), P(B)>0$，则 $A, B$ 相容
+
+  $P(AB)=P(A)P(B)>0\to AB\neq\empty$
+
+* 例 1：设一支枪击中目标的概率  $P=0.001$，求 $n$ 支枪齐射命中的概率
+
+  解：
+
+  记 $A_i=\{第i支枪命中目标\}, i=1, 2,\dots, n$
+
+  由题意 $A_1, A_2, \dots, A_n$ 相互独立
+
+  则 $P_n=P(\bigcup_{i=1}^n A_i)=1-P(\bigcap_{i=1}^n\overline{A_i})=1-(1-p)^n=1-0.999^n$
+
+* 例 2：三门炮击中飞机的概率分别为 $0.4, 0.5, 0.7$，飞机被一门炮击落的概率为 $0.2$，被两门炮击落的概率为 $0.6$，被三门炮打中必定被击落，求飞机被击落的概率
+
+  解：
+
+  记 $A=\{飞机被击落\}$
+
+  $A_i=\{飞机被i门炮击中\},i=0, 1, 2, 3$
+
+  $B_j=\{第j门炮击中飞机\}, j=1, 2, 3$
+
+  则：
+
+  $A_1=B_1\overline {B_2}\overline{B_3}\cup\overline{B_1}B_2\overline{B_3}\cup\overline{B_1}\overline{B_2}B_3$
+
+  $A_2=B_1B_2\overline{B_3}\cup B_1\overline{B_2}B_3\cup\overline{B_1}B_2B_3$
+
+  $A_3=B_1B_2B_3$
+
+  所以
+
+  $P(A_1)=0.36$
+
+  $P(A_2)=0.41$
+
+  $P(A_3)=0.14$
+
+  全概率公式：
+
+  $P(A)=\sum_{i=0}^3P(A|A_i)P(A_i)=0+0.36\times0.2+0.41\times0.6+0.14\times1=0.458$
+
+---
+
+
+
+
+
+
+
+
+
+
 
 
 
