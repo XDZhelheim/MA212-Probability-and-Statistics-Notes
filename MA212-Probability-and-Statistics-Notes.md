@@ -223,17 +223,19 @@
   
    * $P(B\backslash A)=P(B)-P(A)$
      * $P(B)\geqslant P(A)$
-  
-   证明：
-  
-   $\because A\subset B$
-  
-   $\therefore B=A\cup(B\backslash A)$
-  
-   互斥事件，根据有限可加性，$P(B)=P(A)+P(B\backslash A)$
-  
-   $\therefore P(B\backslash A)=P(B)-P(A), P(B)\geqslant P(A)$
-  
+   
+   
+
+  证明：
+
+  $\because A\subset B$
+
+  $\therefore B=A\cup(B\backslash A)$
+
+  互斥事件，根据有限可加性，$P(B)=P(A)+P(B\backslash A)$
+
+  $\therefore P(B\backslash A)=P(B)-P(A), P(B)\geqslant P(A)$
+
 4. $0\leqslant P(A)\leqslant1$
   
 5. $P(\overline A)=1-P(A)$
@@ -650,6 +652,593 @@ $P(A)+P(B)-P(A\cap B)$
   $P(A)=\sum_{i=0}^3P(A|A_i)P(A_i)=0+0.36\times0.2+0.41\times0.6+0.14\times1=0.458$
 
 ---
+
+## 第二章 随机变量
+
+### 2.1 离散随机变量
+
+* 若变量 $X$ 仅取有限或可列个值，则称 $X$ 为离散型随机变量
+
+#### 2.1.1 概率质量函数 PMF
+
+* 定义
+
+  $P\{X=x_k\}=p(x_k)=p_k, k=1, 2, \dots$
+
+  又称频率函数
+
+* 性质
+
+  1. $P(x_k)\geqslant 0, k=1, 2, \dots$
+
+  2. 正则性
+
+     $\sum_{k=1}^\infin p(x_k)=1$
+
+  以上两条为本质特征（充要条件）
+
+* 表示方法
+
+  1. $P\{X=x_k\}=p(x_k)$
+
+  2. 分布列
+
+     | $X$  | $x_1$ | $x_2$ | $\cdots$ |
+     | :--: | :---: | :---: | :------: |
+     | $p$  | $p_1$ | $p_2$ | $\cdots$ |
+
+  3. 矩阵
+
+     $\begin{bmatrix}x_1 & x_2 & \cdots\\ p_1 & p_2 & \cdots \end{bmatrix}$
+
+#### 2.1.2 累积分布函数 CDF
+
+* 定义
+
+  对于随机变量 $X, \forall x\in \R$
+  $$
+  \{X\leqslant x\}\triangleq\{\omega|X(\omega)\leqslant x \}\in\mathcal A
+  $$
+  $\triangleq$ 表示“定义为”
+
+  称函数 $F(x)=p\{X\leqslant x\}, x\in\R$ 为 $X$ 的分布函数
+
+  * 例：$X$ 的频率函数如下
+
+    | $X$  |  1   |  2   |  3   |
+    | :--: | :--: | :--: | :--: |
+    | $p$  | 0.3  | 0.2  | 0.5  |
+
+    求 $X$ 的分布函数 $F(x)$
+
+    解：
+
+    $\forall x<1, F(x)=P\{X\leqslant x\}=P(\empty)=0$
+
+    $\forall 1\leqslant x<2, F(x)=0.3$
+
+    $\forall 2\leqslant x<3, F(x)=p_1+p_2=0.5$
+
+    $\forall x\geqslant3, F(x)=P(\Omega)=1$
+
+    $\therefore F(x)=\begin{cases}0 & x<1\\ 0.3 & 1\leqslant x<2\\ 0.5 & 2\leqslant x<3\\ 1 & x\geqslant 3 \end{cases}$
+
+    图像为阶梯状、单调、右连续
+
+* 性质
+
+  1. 单调不减 non-decreasing
+
+  2. $0\leqslant F(x)\leqslant 1$
+
+     $\lim_{x\to -\infin}F(x)=0, \lim_{x\to \infin}F(x)=1$
+
+  3. 右连续
+
+     $\lim_{\Delta x\to 0^+}F(x+\Delta x)=F(x)$
+
+  以上三条是判断一个函数是分布函数的判据
+
+* 概率计算
+
+  1. 计算 $P\{a<X\leqslant b\}$
+
+     $P\{a<X\leqslant b\}=P\{X\leqslant b\}-P\{X\leqslant a\}=F(b)-F(a)$
+
+  2. 计算 $P\{X=c\}$
+
+     $P\{X=c\}=\lim_{\Delta t\to 0^+}P\{c-\Delta t<X\leqslant c \}=\lim_{\Delta t\to 0^+}[F(c)-F(c-\Delta t)]$
+
+     若 $X=c$ 处连续，则 $P\{X=c\}=0$
+
+* 分布函数与事件概率的关系
+
+  $\forall a, b\in\R$
+
+  1. $P\{a<X\leqslant b\}=F(b)-F(a)$
+  2. $P\{X=a\}=F(a)-F(a-0)$
+  3. $P\{X\geqslant b\}=1-F(b-0)$
+  4. $P\{X>b\}=1-F(b)$
+  5. $P\{a<X<b\}=F(b-0)-F(a)$
+  6. $P\{a\leqslant X\leqslant b\}=F(b)-F(a-0)$
+  7. $P\{a\leqslant X<b\}=F(b-0)-F(a-0)$
+
+#### 2.1.3 离散随机变量的分布
+
+1. 单点分布（退化分布）
+
+   随机变量 $X$ 的 CDF 为 $P\{X=c\}=1$，称 $X$ 服从单点分布
+
+   记作 $X=c(a.e.)$ 或 $X\xlongequal{a.e.}c$
+
+2. (0-1) 两点分布（伯努利分布）
+
+   若随机变量 $X$ 的频率函数 $P\{X=1\}=p, P\{x=0\}=1-p$，则称 $X$ 服从 (0-1) 两点分布
+
+3. 二项分布
+
+   * 伯努利试验
+
+     只产生两个结果 $A,\overline A$ 的试验
+
+     $n$ 重伯努利试验：将伯努利试验独立重复 $n$ 次的试验
+
+   * 公式
+
+     $X=n$ 重伯努利试验中 $A$ 发生的次数
+
+     $P\{X=k\}=C_n^k p^k(1-p)^{n-k}=b(k;n, p)$
+
+     称 $X$ 服从参数为 $(n, p)$ 的二项分布，$X\sim b(n, p)$
+
+   * 最大值（中心项）
+
+     当 $m=(n+1)p$ 为正整数时，$b(m;n, p)=b(m-1;n, p)$ 为最大值
+
+     $m$ 是最可能出现的次数，不是正整数就取整
+
+   * $n=1$ 时退化为 (0-1) 两点分布
+
+   * $E(X)=np$
+
+     $D(X)=np(1-p)$
+
+4. 几何分布
+
+   $X=k$，前 $k$ 次全部失败，直到第 $k$ 次才成功
+   $$
+   P\{X=k\}=p(1-p)^{k-1}
+   $$
+   
+
+   记作 $X\sim Ge(P)$
+
+   * 无记忆性
+
+     $P\{X>m+n|X>m\}=P\{x>n\}$
+
+5. 负二项分布
+
+   进行试验直到 $r$ 次成功，用了 $k$ 次
+   $$
+   P\{X=k\}=pC_{k-1}^{r-1}p^{r-1}(1-p)^{k-r}=C_{k-1}^{r-1}p^{r}(1-p)^{k-r}
+   $$
+   记作 $X\sim Nb(r, p)$
+
+   * $r=1$ 时退化为几何分布
+
+6. 超几何分布
+
+   盒中有 $n$ 个球，$r$ 个黑球，$n-r$ 个白球，从盒中无重复抽取 $m$ 个球，设 $X$ 为抽到黑球的次数
+   $$
+   P\{X=k\}=\frac{C_r^kC_{n-r}^{m-k}}{C_n^m}, k=0, 1, 2,\dots, m
+   $$
+   先从 $r$ 个黑球中选 $k$ 个，再从 $n-r$ 个白球中选 $m-k$ 个
+
+7. 泊松分布
+
+   * 泊松流
+
+     随时间推移，在时间轴上源源不断出现的随机粒子流
+
+     例：某商店某天的顾客
+
+   * 泊松分布
+
+     $X$ 为区间 $(0, t]$ 中出现的粒子数
+     $$
+     P\{X=k\}=\frac{\lambda^k}{k!}e^{-\lambda}, k=0, 1, 2, \dots
+     $$
+     $\lambda>0$ 为参数
+
+     记作 $X\sim \pi(\lambda)$ 或 $X\sim P.(\lambda)$
+
+     常用 $k=0$ (一个顾客都没有): $P\{X=0\}=e^{-\lambda}$
+
+   * 性质
+
+     $P\{X=k\}>0$
+
+     $\sum_{k=0}^\infin P\{X=k\}=\sum_{k=0}^\infin \frac{\lambda^k}{k!}e^{-\lambda}=e^\lambda\cdot e^{-\lambda}=1$
+
+   * 泊松分布与泊松流的关系
+
+     $X\sim\pi(\lambda t)$
+
+     $P\{X=k\}=\frac{(\lambda t)^k}{k!}e^{-\lambda t}$
+
+     $\lambda$ 称为泊松强度
+
+   * 泊松定理
+
+     设 $\lambda>0$ 为常数，$n$ 为正整数，$\lim_{n\to\infin} np_n=\lambda$，则 $\forall k=0, 1, 2, \dots$
+     $$
+     \lim_{n\to\infin}C_n^k p_n^k (1-p_n)^{n-k}=\frac{\lambda^k}{k!}e^{-\lambda}
+     $$
+     当 $n$ 很大 $p$ 很小时，根据泊松定理
+     $$
+     C_n^k p_n^k (1-p_n)^{n-k}\approx\frac{\lambda^k}{k!}e^{-\lambda}
+     $$
+
+---
+
+### 2.2 连续随机变量
+
+#### 2.2.1 概率密度函数 PDF
+
+* 定义
+
+  若随机变量 $X$ 的分布函数能表示为 $F(x)=\int_{-\infin}^x f(t)dt, x\in\R$，其中 $f(t)\geqslant 0$，则称 $X$ 为连续型随机变量，非负可积函数 $f(x)$ 称为密度函数
+
+  * 连续随机变量在区间上的取值是“连续的”
+
+  * 连续随机变量的分布函数满足以上特征且连续
+
+    $F(x)$ 可能在有限或可列个点处不可导，但不影响 $f(x)$ 可积
+
+  * 例：设 r.v. $X$ 的分布函数为
+    $$
+    F(x)=\begin{cases}1-e^{-\frac x\theta} & x>0\\ 0 & x\leqslant 0 \end{cases}
+    $$
+    求概率密度函数 $f(x)$
+
+    解：
+
+    求导得
+    $$
+    f(x)=\begin{cases}\frac 1\theta e^{-\frac x\theta} & x>0\\ 0 & x\leqslant 0 \end{cases}
+    $$
+
+* 性质
+
+  1. $f(x)\geqslant 0$
+
+  2. 正则性
+
+     $\int_{-\infin}^\infin f(t)dt=1$
+
+  3. $\forall x_1<x_2, P\{x_1<X\leqslant x_2\}=F(x_2)-F(x_1)=\int_{x_1}^{x_2}f(x)dx$
+
+     $=P\{x_1<X<x_2\}=P\{x_1\leqslant X<x_2\}=P\{x_1\leqslant X\leqslant x_2\}$
+
+     几何意义：面积表示概率
+
+     $P\{x\leqslant x_0\}=\int_{-\infin}^{x_0}f(x)dx$
+
+     $P\{x>x_0\}=\int_{x_0}^\infin f(x)dx$
+
+  4. 在 $f(x)$ 的连续点处有 $f(x)=F'(x)$
+
+  5. $P\{X=c\}=0$，但是不代表是不可能事件
+
+     $f$ 在 $c$ 处的高度越大，则 $X$ 取值在 $c$ 附近的概率越大。在某点密度曲线的高度反映了概率集中在该点附近的程度
+
+* $p$ - 分位数
+
+  设 $x\sim f(x)$，若 $\forall 0<p<1$，$\exists$ 常数 $x_p$ 满足 $P\{x\leqslant x_p\}=\int_{-\infin}^{x_p}f(x)dx=p$，则称 $x_p$ 为密度函数的 $p$ 分位数
+
+#### 2.2.2 连续随机变量的分布
+
+1. 均匀分布
+
+   若 r.v. $X$ 的密度函数为
+   $$
+   f(x)=\begin{cases}\frac{1}{b-a} & a<x<b\\ 0 &  其他 \end{cases}
+   $$
+   则称 $X$ 服从区间 $(a, b)$ 上的均匀分布，记作 $X\sim U(a, b)$
+
+   * $\forall (c, c+L)\subset (a, b), P\{c<X< c+L\}=\int_{c}^{c+L}\frac {1}{b-a}dx=\frac{L}{b-a}$
+
+     只和区间长度有关，和位置无关
+
+2. 指数分布
+
+   若 $X$ 的密度函数为
+   $$
+   f(x)=\begin{cases}\lambda e^{-\lambda x} & x>0\\ 0 & x\leqslant 0 \end{cases}
+   $$
+   则称 $X$ 服从参数 $\lambda>0$ 的指数分布，记作 $X\sim EXP(\lambda)$
+
+   $\lambda:$ 失效率，$\frac 1\lambda:$ 平均寿命
+
+   * 分布函数
+     $$
+     F(x)=\int_{-\infin}^{x} f(t)dt=\begin{cases}1-e^{-\lambda x} & x>0\\ 0 & x\leqslant 0 \end{cases}
+     $$
+
+   * 无记忆性
+
+     $P\{X>s+t|X>s\}=P\{X>t\}$
+
+   * $E(X)=\frac 1\lambda$
+
+     $D(X)=\frac {1}{\lambda^2}$
+
+3. 伽马分布
+
+   若 $X$ 的密度函数为
+   $$
+   f(x)=\begin{cases}\frac{\lambda^r}{\Gamma(r)}x^{r-1}e^{-\lambda x} & x>0\\ 0 & x\leqslant 0 \end{cases}
+   $$
+   其中 $r>0, \lambda>0$ 为常数，则称 $X$ 服从参数为 $(r, \lambda)$ 的 $\Gamma$ 分布，记作 $X\sim \Gamma(r, \lambda)$
+   $$
+   \Gamma(r)=\int_{0}^\infin x^{r-1}e^{-x}dx, r>0
+   $$
+
+   * $\Gamma(1)=1$
+
+     $\Gamma(\frac 12)=\sqrt\pi$
+
+     $\Gamma(n)=(n-1)!$
+
+   * $r:$ 形状参数
+
+     $\lambda:$ 尺度参数
+
+   * $\Gamma(1, \lambda)=EXP(\lambda)$
+
+4. 正态分布
+
+   * 定义
+
+     若 $X$ 的密度函数为
+     $$
+     f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}, x\in\R, \sigma>0
+     $$
+     则称 $X$ 服从参数为 $(\mu, \sigma^2)$ 的正态分布，记作 $X\sim N(\mu, \sigma^2)$
+
+   * 性质
+
+     1. $f(x)$ 关于 $x=\mu$ 对称
+     2. $f(x)$ 在 $\mu$ 处取极大值 $f(\mu)=\frac{1}{\sqrt{2\pi}\sigma}$，左增右减
+     3. $f(x)$ 以 $x$ 轴为渐近线
+
+   * 图像
+
+     $\mu:$ 位置参数，$\mu$ 增大，图像右移
+
+     $\sigma:$ 刻度参数，$\sigma$ 增大，图像变尖（高瘦）
+
+   * 标准正态分布
+
+     $\mu=0, \sigma^2=1$
+     $$
+     \varphi(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
+     $$
+     分布函数:
+     $$
+     \Phi(x)=\int_{-\infin}^x \frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}dt
+     $$
+
+     * $\Phi(0)=\frac 12$
+
+     * 对称性：$\Phi(-x)=1-\Phi(x)$
+
+     * 计算
+       * $x\geqslant 0$：查表
+       * $x<0$：$\Phi(-x)=1-\Phi(x)$
+
+   * 一般正态分布与标准正态分布的转换
+
+     若 $X\sim N(\mu, \sigma^2)$，设 $Z=\frac{x-\mu}{\sigma}$，则 $Z\sim N(0, 1)$
+
+     $P\{X\leqslant a\}=P\{X-\mu\leqslant a-\mu\}=P\{\frac{x-\mu}{\sigma}\leqslant \frac{a-\mu}{\sigma}\}=P\{Z\leqslant \frac{a-\mu}{\sigma}\}=\Phi(\frac{a-\mu}{\sigma})$
+
+   * $3\sigma$ 原则
+
+     $P\{\mu-\sigma<X<\mu+\sigma\}=0.6826$
+
+     $P\{\mu-2\sigma<X<\mu+2\sigma\}=0.9544$
+
+     $P\{\mu-3\sigma<X<\mu+3\sigma\}=0.9974$
+
+5. 贝塔分布
+   $$
+   f(u)=\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}u^{a-1}(1-u)^{b-1}, 0\leqslant u\leqslant 1
+   $$
+   $a=b=1$ 时为均匀分布
+
+   
+   $$
+   p(x)=\frac{1}{B(a, b)}x^{a-1}(1-x)^{b-1}, 0<x<1
+   $$
+   记作 $X\sim Be(a, b), a>0, b>0$
+
+   称 $B(a, b)=\int_0^1 x^{a-1}(1-x)^{b-1}dx$ 为贝塔函数
+
+   * $B(a, b)=B(b, a)$
+   * $B(a, b)=\frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$
+   * $Be(1, 1)=U(0, 1)$
+
+---
+
+### 2.3 随机变量的函数
+
+#### 2.3.1 离散随机变量函数的频率函数
+
+1. 离散型+离散型
+
+   设 r.v. $X$ 的频率函数为
+
+   |  $X$  | $X_1$ | $X_2$ | $\cdots$ | $X_n$ | $\cdots$ |
+   | :---: | :---: | :---: | :------: | :---: | :------: |
+   | $p_k$ | $p_1$ | $p_2$ | $\cdots$ | $p_n$ | $\cdots$ |
+
+   则 $Y=g(X)$ 的频率函数为
+   
+   |  $X$  | $g(X_1)$ | $g(X_2)$​ | $\cdots$ | $g(X_n)$​ | $\cdots$ |
+   | :---: | :------: | :------: | :------: | :------: | :------: |
+   | $p_k$ |  $p_1$   |  $p_2$   | $\cdots$ |  $p_n$   | $\cdots$ |
+   
+   相同合并
+   
+   * 例：$X$ 的频率函数为
+   
+     | $X$  | $-1$  |  $0$  |  $1$  |  $2$  |
+     | :--: | :---: | :---: | :---: | :---: |
+     | $p$  | $0.2$ | $0.3$ | $0.1$ | $0.4$ |
+   
+     求 $Y=(X-1)^2$ 的频率函数
+   
+     解：
+   
+     | $Y$​  |  $4$​​  |  $1$​  |  $0$​  |  $1$​​  |
+     | :--: | :---: | :---: | :---: | :---: |
+     | $p$  | $0.2$ | $0.3$ | $0.1$ | $0.4$ |
+   
+     合并后：
+   
+     | $Y$  |  $4$​​  |  $1$  |  $0$​  |
+     | :--: | :---: | :---: | :---: |
+     | $p$  | $0.2$​​ | $0.7$​ | $0.1$ |
+   
+2. 连续型+离散型
+
+   例：设 r.v. $X\sim U(0, 1)$，定义
+   $$
+   Y=\begin{cases}0 & 0<X\leqslant 0.25\\ 1 & 0.25<X\leqslant0.75\\ 2 & 0.75<X\leqslant1 \end{cases}
+   $$
+   求 $Y$ 的频率函数
+
+   解：
+
+   $P\{Y=0\}=P(0<X\leqslant0.25)=\int_{0}^{0.25}\frac{1}{1-0}dx=0.25$
+
+   $P\{Y=1\}=P(0.25<X\leqslant0.75)=\int_{0.25}^{0.75}\frac{1}{1-0}dx=0.5$
+
+   $P\{Y=2\}=P(0.75<X\leqslant1)=\int_{0.75}^{1}\frac{1}{1-0}dx=0.25$​
+
+   因此 $Y$ 的频率函数为
+
+   | $Y$  |  0   |  1   |  2   |
+   | :--: | :--: | :--: | :--: |
+   | $p$  | 0.25 | 0.5  | 0.25 |
+
+#### 2.3.2 连续型随机变量函数的分布
+
+* 计算流程
+
+  1. 求 $Y$ 的分布函数 $F_Y(y)=P\{Y\leqslant y\}$
+
+  2. 转化为求 $X$ 的概率计算问题
+
+     需要用到函数 $Y=g(X)$ 的性质
+
+  3. 求导 $f_Y(y)=F'_Y(y)$
+
+  * 例 1：设 r.v. $X$ 的密度函数为
+    $$
+    f_X(x)=\begin{cases}\frac x8 & 0<x<4\\ 0 & 其他 \end{cases}
+    $$
+    求 $Y=2X+8$ 的密度函数
+  
+    解：
+  
+    先求 $Y$ 的分布函数
+  
+    $F_Y(y)=P\{Y\leqslant y\}=P\{2X+8\leqslant y\}=P\{X\leqslant \frac{y-8}{2}\}=F_X(\frac{y-8}{2})$
+  
+    $F_X(x)=\int_{-\infin}^{x}f_X(t)dt=\begin{cases}\frac{x^2}{16} & 0<x<4\\0 & 其他 \end{cases}$
+  
+    $\therefore F_Y(y)=\begin{cases}\frac{(y-8)^2}{64} & 8<y<16\\ 0 & 其他 \end{cases}$
+  
+    $\therefore f_Y(y)=F'_Y(y)=\begin{cases}\frac{y-8}{32} & 8<y<16\\ 0 & 其他 \end{cases}$​
+  
+  * 例 2：设 r.v. $X$​ 的概率密度函数为 $f_X(x)$​，求 $Y=a+bX, b\neq 0$​ 的密度函数
+  
+    解：
+  
+    $F_Y(y)=P\{Y\leqslant y\}=P\{a+bX\leqslant y\}$
+  
+    1. $b>0$​
+  
+       $F_Y(y)=P\{X\leqslant \frac{y-a}{b} \}=\int_{-\infin}^{\frac{y-a}{b}}f_X(x)dx$
+  
+       $\therefore f_Y(y)=F'_Y(y)=\frac 1bf_X(\frac{y-a}{b})$
+  
+    2. $b<0$
+  
+       $F_Y(y)=P\{X\geqslant \frac{y-a}{b} \}=1-\int_{-\infin}^{\frac{y-a}{b}}f_X(x)dx$​
+  
+       $\therefore f_Y(y)=F'_Y(y)=-\frac 1bf_X(\frac{y-a}{b})$
+  
+    综上 $f_Y(y)=F'_Y(y)=sgn(b)\frac 1bf_X(\frac{y-a}{b})$​
+  
+  * 例 3：设 r.v. $X$ 的概率密度函数为 $f_X(x)$，$Y=g(X)$ 单调递增且处处可导，求 $Y$ 的密度函数
+  
+    解：
+  
+    $F_Y(y)=P\{g(X)\leqslant y \}$
+  
+    $\because Y 单调递增$
+  
+    $\therefore F_Y(y)=P\{X\leqslant g^{-1}(y) \}=\int_{-\infin}^{g^{-1}(y)}f_X(x)dx$
+  
+    $\because Y 处处可导$
+  
+    $\therefore f_Y(y)=F_Y'(y)=[g^{-1}(y)]'f_X[g^{-1}(y)]$
+  
+* 设 r.v. $X$ 的密度函数为 $f(x)$，$Y=g(X)$ 严格单调，其反函数 $g^{-1}(Y)$ 连续可导，则 $Y$ 的密度函数为
+  $$
+  f_Y(y)=\begin{cases}|[g^{-1}(y)]'|f_X[g^{-1}(y)] & g^{-1}(y) 有意义\\ 0 & 其他 \end{cases}
+  $$
+
+  * 例 4：$X\sim U(0, 1)$，求 $Y=e^X$ 的密度函数
+
+    解：
+
+    $X\sim U(0,1)\Rightarrow 0<X<1 \Rightarrow 1<Y<e$
+
+    反函数 $h(y)=\ln y, 1<y<e$
+
+    $\therefore f_Y(y)=\begin{cases}|h'(y)|f_X[h(y)] & 1<y<e\\0 & 其他 \end{cases}=\begin{cases}\frac 1y & 1<y<e\\0 & 其他\end{cases}$
+
+* 推论：r.v. $X$​ 的密度函数为 $f(x)$​，$Y=g(X)$​​ 在互不相交的区间 $(a_1, b_1), (a_2, b_2),\dots$​ 上逐段严格单调，且其反函数 $h_1(y), h_2(y), \dots$​​ 均连续可导，则 $Y$ 的密度函数为
+  $$
+  f_Y(y)=\begin{cases}\sum_i|h_i'(y)|f[h_i(y)] & h_i(y) 有意义\\0 & 其他 \end{cases}
+  $$
+
+  * 例 5：设 $X\sim N(0, 1)$，求 $Y=X^2$ 的密度函数
+
+    解：
+
+    设 $g(x)=x^2$，则 $x<0$ 时 $g(x)$ 严格单调递减，$x>0$ 时 $g(x)$ 严格单调递增，反函数分别为
+
+    $h_1(y)=-\sqrt y, h_2(y)=\sqrt y, y>0$​​​​
+
+    $\therefore h_1'(y)=-\frac{1}{\sqrt{2y}}, h_2'(y)=\frac{1}{\sqrt{2y}}, y>0$
+
+    $\therefore f_Y(y)=\begin{cases}|h_1'(y)|\varphi[h_1(y)]+|h_2'(y)|\varphi[h_2(y)] & y>0\\0 & y\leqslant 0\end{cases}=\begin{cases}\frac{1}{\sqrt{2\pi}}y^{-\frac 12}e^{-\frac y2} & y>0\\0 & y\leqslant 0\end{cases}$
+
+---
+
+### 2.4 第二章习题
+
+
+
+
+
+
 
 
 
