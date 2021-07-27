@@ -879,6 +879,36 @@ $P(A)+P(B)-P(A\cap B)$
      $$
      C_n^k p_n^k (1-p_n)^{n-k}\approx\frac{\lambda^k}{k!}e^{-\lambda}
      $$
+   
+8. 多项分布：二项分布的推广
+
+   进行 $n$ 次独立试验，每次试验有 $r$ 种可能的结果，概率为 $p_1, p_2,\dots,p_r$
+
+   令 $N_i$ 是 $n$ 次试验出现第 $i$ 种结果的总次数，$i=1, 2,\dots, r$，则 $N_1, N_2,\dots, N_r$ 的联合频率函数
+   $$
+   p(n_1, n_2, \dots, n_r)=\frac{n!}{n_1!n_2!\cdots n_r!}p_1^{n_1}p_2^{n_2}\cdots p_r^{n_r}
+   $$
+
+   * 例：抛硬币 10 次，每次有 $\frac 38$ 概率正面，$\frac 38$ 概率反面，$\frac 14$ 概率立起来，求出现 4 次正面 3 次反面的概率
+
+     解：
+
+     设 $n_1$ 次正面，$n_2$ 次反面，$n_3$ 次立起来
+
+     $\therefore n_1+n_2+n_3=10$
+
+     $P(n_1, n_2, n_3)=\frac{10!}{n_1!n_2!n_3!}(\frac 38)^{n_1}(\frac 38)^{n_2}(\frac 14)^{n_3}$
+
+     $\therefore P(4, 3, 3)=\frac{10!}{4!3!3!}(\frac 38)^{4}(\frac 38)^{3}(\frac 14)^{3}$
+
+9. 多维超几何分布
+
+   口袋中有 $N$​ 只球，分为 $r$ 类。第 $i$ 种球有 $N_i$ 只，$N_1+N_2+\cdots+N_r=N$
+
+   从中任取 $n$ 只，记 $X_i$ 为取出的 $n$ 只球中第 $i$ 种的个数，则 $(X_1, X_2,\dots, X_r)$ 的分布为
+   $$
+   P(X_1=n_1, X_2=n_2,\dots, X_r=n_r)=\frac{C_{N_1}^{n_1}C_{N_2}^{n_2}\cdots C_{N_r}^{n_r}}{C_N^n}
+   $$
 
 ---
 
@@ -935,7 +965,7 @@ $P(A)+P(B)-P(A\cap B)$
 
 * $p$ - 分位数
 
-  设 $x\sim f(x)$，若 $\forall 0<p<1$，$\exists$ 常数 $x_p$ 满足 $P\{x\leqslant x_p\}=\int_{-\infin}^{x_p}f(x)dx=p$，则称 $x_p$ 为密度函数的 $p$ 分位数
+  设 $X\sim f(x)$​​，若 $\forall 0<p<1$​​，$\exists$​​ 常数 $x_p$​​ 满足 $P\{X\leqslant x_p\}=\int_{-\infin}^{x_p}f(x)dx=p$​​，则称 $x_p$​​ 为密度函数的 $p$​​ 分位数
 
 #### 2.2.2 连续随机变量的分布
 
@@ -1233,6 +1263,170 @@ $P(A)+P(B)-P(A\cap B)$
 ---
 
 ### 2.4 第二章习题
+
+1. 设 $X\sim p(x)$​ 且 $p(x)=p(-x)$，$F(x)$ 为 $X$ 的分布函数，则对任意实数 $a>0$，求 $F(-a)$
+
+   解：
+
+   ![](./images/2-4-1.png)
+
+   根据偶函数的性质，阴影部分面积相等
+
+   即 $F(-a)=1-F(a)$
+
+   $\therefore F(0)=1-F(0)\Rightarrow F(0)=\frac 12$
+
+   $\therefore F(-a)=\frac 12-\int_0^a p(x)dx$
+
+2. 设 $X$ 的分布函数
+   $$
+   F(x)=\begin{cases}0 & x<0\\ \frac 12 & 0\leqslant x\leqslant 1\\ 1-e^{-x} & x\geqslant 1 \end{cases}
+   $$
+   求 $P(X=1)$​
+
+   解：
+
+   $P(X=1)=P(X\leqslant 1)-P(X<1)=F(1)-F(1-0)$​​
+
+   $=F(1)-\lim_{\Delta x\to 0}F(1-\Delta x)=1-\frac 1e-\frac 12=\frac 12-\frac 1e$​
+
+3. 经验表明：预订餐厅座位而不来就餐的顾客的比例为 20%。现在餐厅有 50 个座位，但预订给了 52 个人，求顾客到来时餐厅没有空位的概率
+
+   解：
+
+   设 $X$ 为 52 位顾客中不来的人数
+
+   由题意，顾客鸽了的概率 $p=0.2$​
+
+   $X\sim b(52, 0.2)$
+
+   餐厅中没有空位 $\Leftrightarrow$ 最多俩人鸽了
+
+   $\therefore P(X\leqslant 2)=P(X=0)+P(X=1)+P(X=2)=0.8^{52}+C_{52}^1 0.8^{51}0.2^1+C_{52}^2 0.8^{50}0.2^2$​
+
+4. 设 $X$​ 的概率密度函数 $f(x)$ 满足 $f(1+x)=f(1-x)$ 且 $\int_0^2f(x)dx=0.6$，求 $P(X<0)$
+
+   解：
+   
+   1. 作图
+   
+      ![](./images/2-4-2.png)
+   
+      $P(X<0)=\frac{1-0.6}{2}=0.2$
+   
+   2. 计算
+   
+      $1=\int_{-\infin}^{\infin}f(x)dx=\int_{-\infin}^{0}f(x)dx+\int_{0}^{2}f(x)dx+\int_{2}^{\infin}f(x)dx$
+   
+      令 $x=1+t$
+   
+      原式 $=\int_{-\infin}^{0}f(x)dx+0.6+\int_{1}^{\infin}f(1+t)dt$
+   
+      $=\int_{-\infin}^{0}f(x)dx+0.6+\int_{1}^{\infin}f(1-t)dt$
+   
+      令 $u=1-t$
+   
+      原式 $=\int_{-\infin}^{0}f(x)dx+0.6+\int_{0}^{\infin}f(u)d(-u)$
+   
+      $=2\int_{-\infin}^{0}f(x)dx+0.6$
+   
+      $\int_{-\infin}^{0}f(x)dx=0.2\Rightarrow P(X<0)=0.2$
+   
+5. 设 $Y\sim EXP(1)$​​​，$a>0$​​ 为常数，求 $P(Y\leqslant a+1|Y>a)$​
+
+   解：无记忆性
+
+   $P(Y\leqslant a+1|Y>a)=1-P(Y>a+1|Y>a)=1-P(Y>1)=P(Y\leqslant 1)=F(1)=1-e^{-1}$
+
+6. 设 $X\sim N(10, 4)$，求 $P(10<X<13), P(|X-10|<2)$
+
+   解：
+
+   $P(10<X<13)=P(\frac{10-10}{2}<\frac{X-10}{2}<\frac{13-10}{2})=\Phi(1.5)-\Phi(0)=0.9932-0.5=0.4932$
+
+   $P(|X-10|<2)=P(8<X<12)=P(\frac{8-10}{2}<\frac{X-10}{2}<\frac{12-10}{2})=\Phi(1)-\Phi(-1)=2\Phi(1)-1=0.6826$
+
+7. 已知 $X\sim N(3, 2^2)$ 且 $P(X>k)=P(X\leqslant k)$ 求 $k$
+
+   解：
+
+   $P(X>k)=P(X\leqslant k)$ 且 $P(X>k)+P(X\leqslant k)=1$
+
+   $\therefore P(X\leqslant k)=\frac 12 \Rightarrow P(\frac{X-3}{2}\leqslant\frac{k-3}{2})=\Phi(\frac{k-3}{2})=\frac 12$
+
+   $\therefore \frac{k-3}{2}=0 \Rightarrow k=3$
+
+8. 设 $X\sim N(\mu, 4^2), Y\sim N(\mu, 5^2)$，记 $p_1=P(X\leqslant\mu-4), p_2=P(Y\geqslant\mu+5)$
+
+   则 $A.\forall\mu,p_1=p_2\quad B.\forall\mu,p_1<p_2\quad C.个别\mu,p_1=p_2\quad D.\forall\mu,p_1>p_2$
+
+   解：$A$
+
+   $P(X\leqslant\mu-4)=P(\frac{X-\mu}{4}\leqslant -1)=\Phi(-1)=1-\Phi(1)$​
+
+   $P(Y\geqslant\mu+5)=P(\frac{Y-\mu}{5}\geqslant1)=1-\Phi(1)$​
+
+   $\therefore p_1=p_2$
+
+9. 设随机变量 $X\sim N(\mu_1, \sigma_1^2), Y\sim N(\mu_2, \sigma_2^2)$ 且 $P(|X-\mu_1|<1)>P(|Y-\mu_2|<1)$
+
+   则必有 $A.\sigma_1<\sigma_2\quad B.\sigma_1>\sigma_2\quad C.\mu_1<\mu_2\quad D.\mu_1>\mu_2$
+
+   解：$A$
+
+   $P(|X-\mu_1|<1)=P(-1<X-\mu_1<1)=P(-\frac{1}{\sigma_1}<\frac{X-\mu_1}{\sigma_1}<\frac{1}{\sigma_1})=2\Phi(\frac{1}{\sigma_1})-1$
+
+   同理 $P(|Y-\mu_2|)=2\Phi(\frac{1}{\sigma_2})-1$
+
+   $\therefore \Phi(\frac{1}{\sigma_1})>\Phi(\frac{1}{\sigma_2})$
+
+   $\because \Phi(x)$ 单增
+
+   $\therefore \frac{1}{\sigma_1}>\frac{1}{\sigma_2}\Rightarrow \sigma_1<\sigma_2$
+
+10. 设 $f_1(x)$​ 为标准正态分布的概率密度，$f_2(x)$​ 为 $[1, 3]$​​ 上均匀分布的概率密度
+
+    若 $f(x)=\begin{cases}af_1(x) & x\leqslant 0\\bf_2(x) & x>0 \end{cases} & a, b>0$​ 为概率密度函数，则 $a, b$ 满足
+
+    解：
+
+    $f_1(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}, x\in\R$
+
+    $f_2(x)=\begin{cases}\frac 14 & -1\leqslant x\leqslant 3\\0 & 其他 \end{cases}$
+
+    $\int_{-\infin}^{\infin}f(x)dx=1\Rightarrow\int_{-\infin}^{0}af_1(x)dx+\int_0^3 bf_2(x)dx=1$
+
+    $\therefore \frac 12a+\frac 34b=1\Rightarrow 2a+3b=4$
+
+11. 设 $X\sim p_X(x)=\frac{1}{\pi(1+x^2)}$​，求 $Y=e^X$​ 的概率密度
+
+    解：
+
+    $F_Y(y)=P(Y\leqslant y)=P(e^X\leqslant y)\xlongequal{y>0} P(X\leqslant\ln y)=F_X(\ln y)=\int_{0}^{\ln y}\frac{1}{\pi(1+x^2)}dx$​
+
+    $\therefore f_Y(y)=F'_Y(y)=\begin{cases}\frac{1}{\pi y(1+\ln^2y)} & y>0\\ 0 & y\leqslant 0 \end{cases}$
+
+12. 设 $X\sim N(0, \sigma^2)$，求 $Y=X^2$​ 的密度函数
+
+    解：
+
+    $Y=X^2>0\Rightarrow y\leqslant 0$​​ 时 $f_Y(y)=0$​​​
+
+    $y>0$​ 时 $F_Y(y)=P(Y\leqslant y)=P(X^2\leqslant y)=P(-\sqrt y\leqslant X\leqslant \sqrt y)=\int_{-\sqrt y}^{\sqrt y}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{x^2}{2\sigma^2}}dx$
+
+    $\therefore f_Y(y)=F'_Y(y)=\frac{1}{2\sqrt y}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{y}{2\sigma^2}}-(-\frac{1}{2\sqrt y}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{y}{2\sigma^2}})=\frac{1}{\sqrt{2\pi y}\sigma}e^{-\frac{y}{2\sigma^2}}, y>0$
+
+    $\therefore f_Y(y)=\begin{cases}\frac{1}{\sqrt{2\pi y}\sigma}e^{-\frac{y}{2\sigma^2}} & y>0\\ 0 & y\leqslant 0 \end{cases}$
+
+---
+
+## 第三章 联合分布
+
+
+
+
+
+
 
 
 
