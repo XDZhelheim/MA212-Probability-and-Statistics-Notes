@@ -1422,6 +1422,832 @@ $P(A)+P(B)-P(A\cap B)$
 
 ## 第三章 联合分布
 
+### 3.1 联合累积分布函数
+
+* 二维随机变量
+
+  设 $\Omega$ 为样本空间，$X=X(\omega), Y=Y(\omega),\omega\in\Omega$ 是定义在 $\Omega$ 上的两个 r.v.
+
+  记 $(X, Y)\triangleq(X(\omega), Y(\omega)), \omega\in\Omega$ 称 $(X, Y)$ 为二维随机变量或二维随机向量
+
+* 分布函数
+
+  1. 概念
+
+     设 $(X, Y)$ 为二维随机变量。$x, y\in\R$，定义 $F(x, y)\triangleq P(X\leqslant x, Y\leqslant y)$
+
+     称 $F(x, y)$ 为 $(X, Y)$ 的联合累积分布函数
+
+     几何意义：落在 $(x, y)$ 左下方区域的概率
+
+  2. 概率计算
+     $$
+     P(x_1<X\leqslant x_2, y_1<Y\leqslant y_2)=F(x_2, y_2)-F(x_1, y_2)-F(x_2, y_1)+F(x_1, y_1)
+     $$
+     ![](./images/3-1-1.png)
+
+     多减了一块阴影
+
+  3. 性质
+  
+     1. 任意固定 $x_0$，$F(x_0, y)$ 是 $y$ 的单调不减函数
+  
+        任意固定 $y_0$​，$F(x, y_0)$​​ 是 $x$ 的单调不减函数
+  
+     2. $0\leqslant F(x, y)\leqslant 1$
+  
+        $F(\infin, \infin)=1, F(-\infin, -\infin)=0$
+  
+        $F(-\infin, y)=0, F(x, -\infin)=0$
+  
+     3. $F(x, y)=F(x, y+0)$ 关于 $y$ 右连续
+  
+        $F(x, y)=F(x+0, y)$​​ 关于 $x$​​​ 右连续
+  
+     4. $\forall x_1<x_2,y_1<y_2$ 有
+  
+        $F(x_2, y_2)-F(x_1, y_2)-F(x_2, y_1)+F(x_1, y_1)\geqslant 0$
+  
+        这一条不能由前三条推出，例如 $F(x, y)=\begin{cases}1 & x+y\geqslant 1\\ 0 & x+y<-1 \end{cases}$
+
+---
+
+### 3.2 二维离散型随机变量
+
+#### 3.2.1 联合频率函数
+
+* 概念
+
+  设 r.v. $(X, Y)$​ 的所有可能取值为 $x_i, y_j$​，取值的概率为 $P(X=x_i, Y=y_j)=p(x_i, y_j)=p_{ij}$​
+
+  $i, j=1, 2,\dots$ 称上式为 $(X, Y)$ 的频率函数或联合频率函数
+
+* 性质
+
+  1. 非负性
+
+     $P(X=x_i, Y=y_j)\geqslant 0$
+
+  2. 正则性
+
+     $\sum_{i=1}^\infin\sum_{j=1}^\infin p_{ij}=1$
+
+#### 3.2.2 边际分布
+
+* 概念
+
+  称 $F_X(x)$ 为 $(X, Y)$ 关于 $X$ 的边际分布函数，$F_Y(y)$ 是关于 $Y$ 的边际分布函数
+
+  $F_X(x)=P(X\leqslant x)=P(X\leqslant x, Y\leqslant\infin)=F(x, \infin)$
+
+  同理 $F_Y(y)=F(\infin, y)$
+
+  边际分布完全由联合分布决定
+
+* 边际频率函数
+
+  设 $(X, Y)$ 的频率函数为 $P(X=x_i, Y=y_j)=p_{ij}\ (i, j=1, 2,\dots)$
+
+  则 $X$​ 的频率函数是 $P(X=x_i)=\sum_{j=1}^\infin P(X=x_i, Y=y_j)=\sum_{j=1}^\infin p_{ij}=p_{i\cdot}\ (i=1, 2,\dots)$
+
+  同理 $Y$ 的频率函数 $P(Y=y_j)=\sum_{i=1}^\infin p_{ij}=p_{\cdot j}$
+
+  称数列 $\{p_{i\cdot}\}$ 为 $(X, Y)$ 关于 $X$ 的边际频率函数，$\{p_{\cdot j}\}$ 为关于 $Y$ 的边际频率函数
+
+  * 例：设 $X$ 从 $1, 2, 3, 4$ 中等可能取值，$Y$ 从 $1$ 到 $X$ 中等可能取值，求 $(X, Y)$ 的联合频率函数以及各自的边际频率函数
+
+    解：
+
+    $X$​ 的取值为 $1, 2, 3, 4$​，当 $X=i\ (i=1, 2, 3, 4)$ 时，$Y$ 的取值为 $1\sim i$。由乘法公式，
+
+    $P(X=i, Y=j)=P(Y=j|X=i)P(X=i)=\frac{1}{4i}, 1\leqslant j\leqslant i$
+
+    所以联合频率函数为
+
+    | $Y\backslash X$​ |     1      |     2      |        3        |        4        |  $p_{\cdot j}$  |
+    | :-------------: | :--------: | :--------: | :-------------: | :-------------: | :-------------: |
+    |        1        | $\frac 14$ | $\frac 18$ | $\frac {1}{12}$ | $\frac {1}{16}$ | $\frac{25}{48}$ |
+    |        2        |     0      | $\frac 18$ | $\frac {1}{12}$ | $\frac {1}{16}$ | $\frac{13}{48}$ |
+    |        3        |     0      |     0      | $\frac {1}{12}$ | $\frac {1}{16}$ | $\frac{7}{48}$  |
+    |        4        |     0      |     0      |        0        | $\frac {1}{16}$ | $\frac{3}{48}$  |
+    |  $p_{i\cdot}$   | $\frac 14$ | $\frac 14$ |   $\frac 14$    |   $\frac 14$    |                 |
+
+    边际频率函数为
+
+    |     $X$      |     1      |     2      |     3      |     4      |
+    | :----------: | :--------: | :--------: | :--------: | :--------: |
+    | $p_{i\cdot}$ | $\frac 14$ | $\frac 14$ | $\frac 14$ | $\frac 14$ |
+
+    |      $Y$​      |        1        |        2        |       3        |       4        |
+    | :-----------: | :-------------: | :-------------: | :------------: | :------------: |
+    | $p_{\cdot j}$​​​ | $\frac{25}{48}$ | $\frac{13}{48}$ | $\frac{7}{48}$ | $\frac{3}{48}$ |
+
+---
+
+### 3.3 二维连续型随机变量
+
+#### 3.3.1 联合概率密度函数
+
+* 概念
+
+  设 r.v. $(X, Y)$ 的分布函数为 $F(x, y)=P(X\leqslant x, Y\leqslant y)$，若存在非负可积函数 $f(x, y)$​ 使得 $\int_{-\infin}^{x}\int_{-\infin}^{y}f(u, v)dudv=F(x, y)$，则称 $f(x, y)$ 为 $(X, Y)$​ 的联合概率密度函数
+
+* 性质
+
+  1. $f(x, y)\geqslant 0$
+
+  2. $\int_{-\infin}^{\infin}\int_{-\infin}^{\infin} f(u, v)dudv=1$
+
+  3. $\forall D\in\R^2, P((X, Y)\in D)=\iint_D f(x, y)dxdy$​
+
+     曲顶柱体的体积
+
+  4. 在 $f(x, y)$ 的连续点处有 $\frac{\partial^2 F(x, y)}{\partial x\partial y}=f(x, y)$
+
+     $F_{xy}, F_{yx}$​ 混合二阶偏导
+
+* 例：$(X, Y)$ 的概率密度为 $f(x, y)=\begin{cases}ke^{-(2x+y)} & x>0, y>0\\0& 其他 \end{cases}$
+
+  求：(1) $k$ (2) $F(x, y)$ (3) $P(Y\leqslant X)$
+
+  解：
+
+  (1) 
+
+  $\int_{-\infin}^{\infin}\int_{-\infin}^{\infin} f(x, y)dxdy=1$
+
+  $\therefore k\int_{0}^{\infin}\int_{0}^{\infin}e^{-2x-y}dxdy=k\int_{0}^{\infin}e^{-2x}dx\int_{0}^{\infin}e^{-y}dy=\frac k2=1$
+
+  $\therefore k=2$
+
+  (2)
+
+  $F(x, y)$
+
+  $=\int_{-\infin}^{x}\int_{-\infin}^{y}f(u, v)dudv$
+
+  $=\begin{cases}\int_0^x\int_0^y 2e^{-2u-v}dudv & x>0, y>0\\0 & 其他 \end{cases}$​
+
+  $=\begin{cases}2\int_0^x e^{-2u}du\int_0^y e^{-v}dv & x>0, y>0\\0 & 其他 \end{cases}$​
+
+  $=\begin{cases}(1-e^{-2x})(1-e^{-y}) & x>0, y>0\\0 & 其他 \end{cases}$
+
+  (3)
+
+  记 $D=\{(x, y)|y\leqslant x, x,y>0 \}$，则 $P(Y\leqslant X)=P((X, Y)\in D)=\iint_D f(x, y)dxdy$
+
+  $\iint_D f(x, y)dxdy=\int_0^\infin dy\int_y^\infin 2e^{-2x-y}dx=\frac 13$
+
+  ![](./images/3-3-1.png)
+
+#### 3.3.2 二维连续变量的边际密度函数
+
+* 边际密度
+
+  $X$ 的分布函数 $F_X(x)=P\{X\leqslant x, Y<\infin\}=\int_{-\infin}^x(\int_{-\infin}^\infin f(u, y)dy)du$
+
+  则 $X$​ 的边际密度函数为 $f_X(x)=\int_{-\infin}^\infin f(x, y)dy, x\in\R$
+
+  同理 $f_Y(y)\int_{-\infin}^\infin f(x, y)dx, y\in\R$
+
+  <span style="color:blue">注意积分的上下限根据题意找范围</span>
+
+  * 例：$f(x, y)=\begin{cases}e^{-y} & x>0, y>x\\0 & 其他 \end{cases}$ 求 $f_X(x), f_Y(y)$
+
+    解：
+
+    $x\leqslant 0$ 时 $f_X(x)=\int_{-\infin}^{\infin}0 dy=0$
+
+    $x>0$ 时 $f_X(x)=\int_x^\infin e^{-y}dy=e^{-x}$
+
+    $y\leqslant 0$ 时 $f_Y(y)=0$
+
+    $y>0$ 时 $f_Y(y)=\int_0^y e^{-y}dx=ye^{-y}$
+
+    综上，
+
+    $f_X(x)=\begin{cases}e^{-x} & x>0\\ 0 & x\leqslant 0 \end{cases}$
+
+    $f_Y(y)=\begin{cases}ye^{-y} & y>0\\ 0 & y\leqslant 0 \end{cases}$
+
+* Farlie-Morgenstern 族
+
+  设 $F(y), G(y)$ 是一维连续型分布函数，则 $\forall |\alpha|<1$​
+
+  $H(x, y)=F(x)G(y)\{1+\alpha[1-F(x)][1-G(y)] \}$​ 是二元连续分布函数
+
+  其边际分布 $H(x, \infin)=F(x), H(\infin, y)=G(y)$
+
+  <span style="color:blue">给定边际分布，可以构造无数个不同的二维联合分布</span>
+
+* 连接函数 coupla
+
+  边际分布为均匀分布的联合累积分布函数，记作 $C(u, v)$
+
+  性质：
+
+  1. $C(u, v)$ 关于每个变量都是不减的
+
+  2. $P(U\leqslant u)=C(u, 1)=u, C(1, v)=v$
+
+  3. 讨论具有密度函数的连接函数，此时 $c(u, v)=\frac{\partial^2}{\partial u\partial v}C(u, v)\geqslant 0$​
+
+  4. 若 $X, Y$​ 是分布函数分别为 $F_X(x)$​ 和 $F_Y(y)$​ 的连续随机变量，则 $U=F_X(x)$​ 和 $V=F_Y(y)$​​ 是均匀分布随机变量。对于连接函数 $C(u, v)$​，定义联合分布 $F(x, y)=C[F_X(x), F_Y(y)]$，则其边际分布为 $F_X(x), F_Y(y)$，相应的密度为 $f(x, y)=c[F_X(x), F_Y(y)]f_X(x)f_Y(y)$
+
+     说明：两个边际分布与任意的连接函数，可以构造出相同边际分布的联合分布，即：边际分布不能决定联合分布，两个变量的相依性由连接函数控制
+
+#### 3.3.3 二维正态分布
+
+若 $(X, Y)$ 的联合密度为
+$$
+f(x, y)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}e^{-\frac{1}{2(1-\rho^2)}[\frac{(x-\mu_1)^2}{\sigma_1^2}-2\rho\frac{(x-\mu_1)(y-\mu_2)}{\sigma_1\sigma_2}+\frac{(y-\mu_2)^2}{\sigma_2^2}]}
+$$
+则称 $(X, Y)$ 服从参数为 $(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho)$ 的二维正态分布，记作 $(X, Y)\sim N(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho)$
+
+其中各参数 $\mu_1, \mu_2\in\R, \sigma_1, \sigma_2>0, |\rho|<1$
+
+* 定理：若 $(X, Y)\sim N(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho)$ 则 $X\sim N(\mu_1, \sigma_1^2), Y\sim N(\mu_2, \sigma_2^2)$
+
+* 正态密度的图形及边际密度的几何意义
+
+  边际密度是正态曲线
+
+  $f_Y(y)=\int_{-\infin}^{\infin}f(x, y)dx$：固定 $y$，截面曲边梯形的面积
+
+* $X, Y$ 相互独立 $\Leftrightarrow\rho=0$
+
+* 给定 $X$ 时 $Y$ 或给定 $Y$ 时 $X$ 的条件密度是一维正态分布
+
+* 两个边际密度是正态分布的变量，联合分布不一定是二维正态分布
+
+* 对于二维正态分布，独立 $\Leftrightarrow$ 不相关
+
+---
+
+### 3.4 独立随机变量
+
+* 独立变量
+
+  设 $(X, Y)\sim F(x, y), X\sim F_X(x), Y\sim F_Y(y)$​​
+
+  若 $\forall x, y\in\R$​，有 $P(X\leqslant x, Y\leqslant y)=P(X\leqslant x)P(Y\leqslant y)$​​，即 $F(x, y)=F_X(x)F_Y(y)$
+
+  则称 $X, Y$ 相互独立
+
+  * 直观意义
+
+    $X, Y$ 的取值是相互独立、互不相干的
+
+    事件 $\{x_1<X\leqslant x_2\}, \{y_1<Y\leqslant y_2\}$​ 独立
+
+  * 判定相互独立
+
+    1. $F(x, y)=F_X(x)F_Y(y)$​（本质定义）
+    2. $f(x, y)=f_X(x)f_Y(y)$
+    3. $p_{ij}=p_ip_j$
+
+  * $X, Y$ 独立 $\Leftrightarrow f(x, y)$ 可分离变量，$f(x, y)=g(x)h(y)$
+
+* 二维离散型随机变量的独立性
+
+  设 $(X, Y)$​​​ 的频率函数为 $P(X=X_i, Y=y_j)=p_{ij}\ (i, j=1, 2, \dots)$​
+
+  则 $X, Y$ 相互独立等价于 $\forall i, j=1, 2, \dots$，有 $P(X=x_i, Y=y_j)=P(X=x_i)P(Y=y_j)$
+
+* 二维连续型随机变量的独立性
+
+  设 $(X, Y)$ 为连续型随机变量且 $(X, Y)\sim f(x, y), X\sim f_X(x), Y\sim f_Y(y)$
+
+  若 $(X, Y)$ 相互独立，则 $\int_{-\infin}^x\int_{-\infin}^y f(u, v)dudv=P(X\leqslant x, Y\leqslant y)=\int_{-\infin}^x f_X(u)du\int_{-\infin}^y f_Y(v)dv$
+
+  从而在 $f(x, y), f_X(x), f_Y(y)$ 的连续点处有 $f(x, y)=f_X(x)f_Y(y)$
+
+  * 例：在某一分钟内，信号进入收信机是等可能的。若收到两个互相独立的信号间隔为 0.5 秒，则信号产生相互干扰，求两信号互相干扰的概率
+
+    解：
+
+    设两信号进入收信机的时间分别为 $X, Y$ 分钟，则 $X\sim U(0, 1), Y\sim U(0, 1)$
+
+    $\because X, Y$ 独立
+
+    $\therefore f(x, y)=f_X(x)f_Y(y)=\begin{cases}1 & 0<x<1, 0<y<1\\ 0 & 其他 \end{cases}$
+
+    $\therefore P(|X-Y|\leqslant\frac{1}{120})=\iint_{|X-Y|\leqslant \frac{1}{120}}f(x, y)dxdy=\iint_D 1 dxdy=S_D=1-(1-\frac{1}{120})^2=0.016$
+
+    ![](./images/3-4-1.png)
+
+* $n$ 维随机变量的边际分布和独立性
+
+  1. 一维边际分布
+
+     设 $n$ 维随机变量的分布函数 $F(x_1, x_2,\cdots, x_n)=P(X_1\leqslant x_1, X_2\leqslant x_2, \dots, X_n\leqslant x_n)$
+
+     则 $X_i$ 的边际分布
+
+     $F_{X_i}(x_i)=P(X_1<\infin, X_2<\infin, \dots, X_{i-1}<\infin, X_i\leqslant x_i, X_{i+1}<\infin, \dots, X_n<\infin)$
+
+     即 $F(\infin, \infin, \dots, \infin, x_i, \infin, \dots, \infin)$
+
+  2. 二维边际分布
+
+     $F_{X_1X_2}(x_1, x_2)=P(X_1\leqslant x_1, X_2\leqslant x_2, X_3<\infin, X_4<\infin, \dots, X_n<\infin)$
+
+     即 $F(x_1, x_2, \infin,  \dots,  \infin)$​
+
+     类似地可定义高维边际分布
+
+  3. 随机向量的独立性
+
+     * $\forall X_1, X_2, \dots, X_n\in\R$，若 $F(x_1, x_2, \dots, x_n)=F_{X_1}(x_1)F_{X_2}(x_2)\cdots F_{X_n}(x_n)$
+
+       则称 $X_1, X_2, \dots, X_n$ 相互独立
+
+     * 两个向量的独立性
+
+       设 $(X_1, X_2, \dots, X_m)\sim F_1(x_1, x_2, \dots, x_m), (Y_1, Y_2, \dots, Y_n)\sim F_2(y_1, y_2,\dots, y_n)$
+
+       且 $(X_1, X_2, \dots, X_m; Y_1, Y_2, \dots, Y_n)\sim F(x_1, x_2, \dots, x_m; y_1, y_2,\dots, y_n)$
+
+       $\forall x_1, x_2, \dots, x_m, y_1, y_2,\dots, y_n\in \R$，若有 $F(x_1, x_2, \dots, x_m; y_1, y_2,\dots, y_n)=F_1F_2$，则称 $(X_1, X_2, \dots, X_m), (Y_1, Y_2, \dots, Y_n)$ 相互独立
+
+     * 定理
+
+       设 $(X_1, X_2, \dots, X_m), (Y_1, Y_2, \dots, Y_n)$ 相互独立，则
+
+       1. $X_i, Y_j$ 相互独立
+
+       2. 设 $h, g$ 分别为 $m$ 元和 $n$ 元的连续函数，则
+
+          $h(X_1, X_2, \dots, X_m), g(Y_1, Y_2, \dots, Y_n)$​ 依然相互独立
+
+---
+
+### 3.5 条件分布
+
+#### 3.5.1 条件频率函数
+
+* 定义
+
+  设 $(X, Y)$ 的频率函数为 $p_{ij}$，对于确定的 $j$，若 $P(Y=y_j)=p_{\cdot j}>0$
+
+  则 $P_{X|Y}(X_i, Y_j)=P(X=x_i|Y=y_j)=\frac{p_{ij}}{p_{\cdot j}}$​​​ 为在 $Y=y_j$ 的条件下，$X$ 的条件频率函数
+
+  $P_{Y|X}(y_j|x_i)$ 同理
+
+* 性质
+
+  1. 非负性
+  2. 正则性
+
+#### 3.5.2 条件概率密度
+
+* 定义
+
+  设 $(X, Y)$​​​​ 的概率密度为 $f(x, y)$​​​​，若对于固定的 $y_0$​​​​，$(X, Y)$​​​​ 关于 $Y$​​​​ 的边际密度 $f_Y(y_0)>0$​​​，则称
+
+  $\frac{f(x, y)}{f_Y(y_0)}=f_{X|Y}(x|y_0), x\in\R$​ 为在 $Y=y_0$​ 的条件下，$X$​ 的条件密度
+
+  $F_{X|Y}(x|y_0)=\int_{\infin}^x f_{X|Y}(u|y_0)du$​ 为​​​​​ $Y=y_0$ 条件下，$X$​ 的条件分布
+
+* 性质
+
+  1. 非负性
+
+  2. 正则性
+
+     $\int_{-\infin}^\infin f_{X|Y}(u|y)du=\int_{-\infin}^\infin\frac{f(u, y)}{f_Y(y)}du=\frac{1}{f_Y(y)}\int_{-\infin}^\infin f(u, y)du=\frac{1}{f_Y(y)}f_Y(y)=1$
+
+* 连续情形的全概率公式
+
+  $f_{Y|X}(y|x)=\frac{f(x, y)}{f_X(x)}\Rightarrow f(x, y)=f_{Y|X}(y|x)f_X(x)$
+
+  对 $x$ 积分 $\Rightarrow f_Y(y)=\int_{-\infin}^{\infin}f_{Y|X}(y|x)f_X(x)dx$​​（边际分布的定义）
+
+* 平面上的均匀分布
+
+  设 $G$ 是平面上的有界区域，其面积为 $A$，若 $(X, Y)$ 的概率密度为
+
+  $f(x, y)=\begin{cases}A & (x, y)\in G\\ 0 & 其他 \end{cases}$，则称 $(X, Y)$ 服从区域 $G$ 上的均匀分布，记作 $(X, Y)\sim U(G)$
+
+  <span style="color:blue">边际密度不一定是均匀分布</span>
+
+#### 3.5.3 例题
+
+1. 设随机变量 $Y\sim N(0, 1)$，求 $X_1=\begin{cases}0 & |Y|\geqslant 1\\ 1 & |Y|<1 \end{cases}$ 和 $X_2=\begin{cases}0 & |Y|\geqslant 2\\ 1 & |Y|<2 \end{cases}$​ 的联合分布列​
+
+   解：
+
+   $P(X_1=0, X_2=0)=P(|Y|\geqslant 2)=P(Y\geqslant 2 \lor Y\leqslant -2)=1-\Phi(2)+1-\Phi(2)=0.0455$
+
+   $P(X_1=0, X_2=1)=P(1\leqslant |Y|<2)=P(-2<Y\leqslant -1\lor 1\leqslant Y\leqslant 2)=\Phi(-1)-\Phi(-2)+\Phi(2)-\Phi(1)=2\Phi(2)-2\Phi(1)=0.2719$
+
+   $P(X_1=1, X_2=0)=P(|Y|<1, |Y|\geqslant 2)=0$
+
+   $P(X_1=1, X_2=1)=P(|Y|<1)=P(-1<Y<1)=\Phi(1)-\Phi(-1)=2\Phi(1)-1=0.6826$
+
+   综上，$(X_1, X_2)$ 的分布列为
+
+   | $X_1\backslash X_2$ |   0    |   1    |
+   | :-----------------: | :----: | :----: |
+   |          0          | 0.0455 | 0.2719 |
+   |          1          |   0    | 0.6826 |
+
+2. $(X, Y)$ 服从区域 $D=\{(x, y)|x^2+y^2\leqslant 1 \}$ 上的均匀分布，求 $X$ 的边际密度 $f_X(x)$
+
+   解：
+
+   由题意 $F(x, y)=\begin{cases}\frac 1\pi & x^2+y^2\leqslant 1\\0 & 其他 \end{cases}$
+
+   $x>1$ 或 $x<-1$ 时 $f_X(x)=0$
+
+   $-1\leqslant x\leqslant 1$ 时 $f_X(x)=\int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}\frac 1\pi dy=\frac{2\sqrt{1-x^2}}{\pi}$
+
+   综上，$X$ 的边际密度为
+
+   $f_X(X)=\begin{cases}\frac{2\sqrt{1-x^2}}{\pi} & -1\leqslant x\leqslant 1\\ 0 & 其他 \end{cases}$​
+
+   ![](./images/3-5-1.png)
+
+3. 设 $(X, Y)$ 的密度函数为 $f(x, y)=\begin{cases}e^{-y} & 0<x<y\\0 & 其他 \end{cases}$，求 $P(X+Y\leqslant 1)$
+
+   解：
+
+   $P(X+Y\leqslant 1)=\int_{0}^{\frac 12}\int_x^{1-x}e^{-y}dydx=1+e^{-1}-2e^{-\frac 12}$
+
+   ![](./images/3-5-2.png)
+
+---
+
+### 3.6 联合分布随机变量函数
+
+#### 3.6.1 连续型 $Z=X+Y$
+
+1. 卷积公式
+
+   若 $X, Y$ 相互独立，则 $Z=X+Y$ 的密度函数为
+
+   $f_Z(z)=\int_{-\infin}^\infin f_X(z-y)f_Y(y)dy$
+
+   $f_Z(z)=\int_{-\infin}^\infin f_X(x)f_Y(z-x)dx$
+
+   $=f_X\ast f_Y$​
+
+   * 证明：
+
+     $F_Z(z)=P(Z\leqslant z)=P(X+Y\leqslant Z)=\iint_{x+y\leqslant z}f(x, y)dxdy$
+
+     $\int_{-\infin}^\infin\int_{-\infin}^{z-y}f(x, y) dxdy\xlongequal{x=u-y}\int_{-\infin}^\infin\int_{-\infin}^z f(u-y, y)dudy=\int_{-\infin}^z[\int_{-\infin}^\infin f(u-y, y) dy]du$
+
+     $\therefore f_Z(z)=F'_Z(z)=\int_{-\infin}^\infin f(z-y, y)dy=\int_{-\infin}^\infin f(x, z-x)dx$
+
+     ![](./images/3-6-1.png)
+
+2. 独立正态随机变量的和
+
+   * $X\sim N(\mu_1, \sigma_1^2), Y\sim N(\mu_2, \sigma_2^2)$，$X, Y$ 独立
+
+     则 $X+Y\sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2), X-Y\sim N(\mu_1-\mu_2, \sigma_1^2+\sigma_2^2)$
+
+   * $X_1, X_2, \dots, X_n$ 相互独立且 $X_i\sim N(\mu_i, \sigma_i^2), i=1, 2\dots, n$
+
+     则对于不全为 0 的常数 $a_1, a_2, \dots, a_n$ 有
+
+     $a_1X_1+a_2X_2+\cdots+a_nX_n\sim N(\sum_{i=1}^n a_i\mu_i,\sum_{i=1}^n a_i^2\sigma_i^2)$
+
+* 例 1：独立变量 $X, Y$​ 的概率密度均为 $f(x)=\begin{cases}\frac{10-x}{50} & 0\leqslant x\leqslant 10\\0 & 其他 \end{cases}$
+
+  求 $Z=X+Y$ 的概率密度
+
+  解：
+
+  由卷积公式，$f_Z(z)=\int_{-\infin}^\infin f(x)f(z-x)dx$
+
+  被积函数的非 0 区域 $\begin{cases}0\leqslant x\leqslant 10\\0\leqslant z-x\leqslant 10 \end{cases}\Rightarrow \begin{cases}0\leqslant x\leqslant 10\\x\leqslant z\leqslant x+10 \end{cases}$​
+
+  ![](./images/3-6-2.png)
+
+  $\therefore f_Z(z)=\begin{cases}\int_0^z f(x)f(z-x)dx & 0\leqslant z\leqslant 10\\ \int_{z-10}^{10} f(x)f(z-x)dx & 10\leqslant z\leqslant 20\\0 & 其他 \end{cases}=\begin{cases}\frac{z^3-60z^2+600z}{15000} & 0\leqslant z\leqslant 10\\\frac{(20-z)^3}{15000} & 10\leqslant z\leqslant 20\\ 0 & 其他 \end{cases}$
+
+#### 3.6.2 离散型 $Z=X+Y$
+
+1. 卷积公式（离散）
+
+   设 $X, Y$​ 独立，$P(X=i)=p_i, P(Y=j)=q_j\ (i, j=1, 2, \dots)$​
+
+   则 $Z=X+Y$​ 的频率为 
+
+   $P(Z=k)=\sum_{i=1}^{k-1} P(X=i)P(Y=k-i)=\sum_{i=1}^{k-1} P(X=k-i)P(Y=i), k=1, 2, \dots$​
+
+
+* 例 2：$X, Y$​ 独立且 $X\sim P(\lambda_1), Y\sim P(\lambda_2)$​，求 $Z=X+Y$​ 的分布
+
+  解：
+
+  由离散卷积公式
+
+  $P(Z=k)=\sum_{i=0}^k P(X=k-i)P(Y=i)=\sum_{i=0}^k\frac{\lambda_1^{k-i}}{(k-i)!}e^{-\lambda_1}\cdot \frac{\lambda_2^i}{i!}e^{-\lambda_2}$
+
+  $=e^{-(\lambda_1+\lambda_2)}\sum_{i=0}^k\frac{1}{i!(k-i)!}\lambda_1^{k-i}\lambda_2^i\xlongequal{二项分布}e^{-(\lambda_1+\lambda_2)}\frac{1}{k!}\sum_{i=0}^k\frac{k!}{i!(k-i)!}\lambda_1^{k-i}\lambda_2^i$
+
+  $\xlongequal{二项式}e^{-(\lambda_1+\lambda_2)}\frac{(\lambda_1+\lambda_2)^k}{k!}$​
+
+  $\therefore Z\sim P(\lambda_1+\lambda_2)$​
+
+#### 3.6.3 $Z=\frac XY$ 的分布
+
+1. $Z=\frac XY$ 的计算
+
+   设 $(X, Y)\sim f(x, y), F_Z(z)=P(\frac XY\leqslant z)=\iint_{\frac xy\leqslant z}f(x, y)dxdy$
+
+   $F_Z(z)=\int_0^\infin\int_{-\infin}^{yz}f(x, y)dxdy$
+
+   令 $u=\frac xy, y=y$，则 $|J|=|\begin{vmatrix} y & u \\ 0 & 1 \end{vmatrix}|=|y|\ (x=uy)$
+
+   则 $F_Z(z)=\int_{-\infin}^z(\int_{-\infin}^\infin f(uy, y)|y|dy)du$
+
+   $\therefore f_Z(z)=\int_{-\infin}^\infin f(zy, y)|y|dy$
+
+   当 $X, Y$ 独立时 $f_Z(z)=\int_{-\infin}^\infin f_X(zy)f_Y(y)|y|dy$
+
+   ![](./images/3-6-3.png)
+   
+2. 柯西分布
+   $$
+   f(x; x_0, \gamma)=\frac{1}{\pi\gamma[1+(\frac{x-x_0}{\gamma})^2]}, x\in \R
+   $$
+
+* 例 3：设 $X, Y$ 独立且密度函数均为 $f(x)=\begin{cases}e^{-x} & x>0\\ 0 & x\leqslant 0 \end{cases}$，求 $Z=\frac XY$ 的密度
+
+  解：
+
+  $Z\geqslant 0$ 时 $Z$ 的分布函数 $F_Z(z)=P(\frac XY\leqslant Z)=\iint_{\frac xy\leqslant z, x, y>0}e^{-(x+y)}dxdy$
+
+  $=\int_0^\infin\int_0^{yz}e^{-(x+y)}dxdy=\int_0^\infin e^{-y}(1-e^{-yz})dy=1+\frac{1}{1+z}$
+
+  $f_Z(z)=F_Z'(z)=\frac{1}{(1+z)^2}, z>0$
+
+  综上，
+
+  $f_Z(z)=\begin{cases}\frac{1}{(1+z)^2} & z>0\\ 0 & z\leqslant 0 \end{cases}$
+
+  ![](./images/3-6-4.png)
+
+* 例 4：$X, Y$​ 独立且服从标准正态分布，求 $Z=\frac YX$​ 的概率密度
+
+  解：
+
+  $Z=\frac YX$，则 $f_Z(z)=\int_{-\infin}^\infin f(x, xz)|x|dx=\int_{-\infin}^\infin\frac{|x|}{2\pi}e^{-\frac{x^2}{2}-\frac{x^2z^2}{2}}dx$
+
+  偶函数积一半 $=\frac {1}{\pi}\int_0^\infin xe^{-x^2\frac{z^2+1}{2}}$​
+
+  换元 $u=x^2$​，$f_Z(z)=\frac{1}{2\pi}\int_0^\infin e^{-u\frac{z^2+1}{2}}du=\frac{1}{\pi(z^2+1)}$​（利用 $\int_0^\infin \lambda e^{-\lambda x}dx=1, \lambda=\frac{z^2+1}{2}$​）
+
+  $\therefore f_Z(z)=\frac{1}{\pi(z^2+1)}, z\in\R$ 服从标准柯西分布
+
+#### 3.6.4 两个随机变量变换的分布
+
+1. 设 $X_1, X_2$ 独立且服从标准正态分布，且 $Y_1=X_1, Y_2=X_1+X_2$
+
+   则 $(Y_1, Y_2)\sim N(0, 0, 1, 2, \sqrt\frac 12)$
+
+   * 推论 1：两个独立标准正态 r.v. 的线性变换服从二元正态分布
+   * 推论 2：两个 r.v. 的联合分布是二元正态分布，则它们的非奇异线性变换仍服从二元正态分布
+
+* 例 6：设 $X, Y$ 独立，概率密度均为 $f(x)=\begin{cases}e^{-x} & x\geqslant 0\\0 & x<0 \end{cases}$
+
+  求 $U=X+Y, V=\frac XY$ 的联合密度，并证明 $U, V$ 独立
+
+  解：
+
+  $F_{UV}(u, v)=P(X+Y\leqslant U, \frac XY\leqslant V)=\iint_{\begin{cases}x+y\leqslant u\\ \frac xy\leqslant v\\ x, y\geqslant 0 \end{cases}}f(x)f(y)dxdy$​
+
+  令 $x+y=s, \frac xy=t$，则 $x=\frac{st}{1+t}, y=\frac{s}{1+t}$
+
+  $\therefore J=\begin{vmatrix}\frac{\partial x}{\partial s} & \frac{\partial x}{\partial t}\\ \frac{\partial y}{\partial s} & \frac{\partial y}{\partial t} \end{vmatrix}=-\frac{s}{(t+1)^2}, s\geqslant 0, t\neq -1$
+
+  $\therefore F_{UV}(u, v)=\iint_{\begin{cases}x+y\leqslant u\\ \frac xy\leqslant v\\ x, y\geqslant 0 \end{cases}}e^{-(x+y)}dxdy=\int_0^v\int_0^u e^{-s}|J|dsdt=\frac{ue^{-u}}{(1+v)^2}, u, v\geqslant 0$
+
+  $\because F_{UV}(u, v)$ 可表示为 $g(u)h(v)=ue^{-u}\cdot \frac{1}{(1+v)^2}$
+
+  $\therefore U, V$​ 相互独立
+
+#### 3.6.5 随机变量的其他函数
+
+变量变换法：
+
+已知 $(X, Y)$ 的分布，$(U, V)$ 为 $(X, Y)$ 的函数 $U=g_1(X, Y), V=g_2(X, Y)$，求 $(U, V)$​ 的分布：
+
+若 $\begin{cases}u=g_1(x, y)\\ v=g_2(x, y) \end{cases}$ 存在反函数 $\begin{cases}x=x(u, v)\\ y=y(u, v) \end{cases}$
+
+则 $(U, V)$ 的联合密度为 $p_{UV}(u, v)=p_{XY}[x(u, v), y(u, v)]|J|$
+
+其中 $J=\begin{vmatrix}\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v}\\ \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v} \end{vmatrix}$
+
+* 例 7：$X, Y$​ 独立，密度函数分别为 $f_X(x), f_Y(y)$，求 $U=XY$ 的密度函数
+
+  解：
+
+  设 $V=Y$
+
+  $\begin{cases}u=xy\\ v=y \end{cases}\Rightarrow \begin{cases}x=\frac uy\\ y=v \end{cases}$
+
+  $\therefore J=\begin{vmatrix}\frac 1v & -\frac{u^2}{v}\\ 0 & 1 \end{vmatrix}=\frac 1v$
+
+  $\therefore f(u, v)=f_X(\frac uv)f_Y(v)|J|=f_X(\frac uy)f_Y(y)\frac{1}{|y|}$
+
+  $\therefore f_U(u)=\int_{-\infin}^\infin f(u, v)dv=\int_{-\infin}^\infin f_X(\frac uy)f_Y(y)\frac{1}{|y|}$
+
+解题步骤：
+
+1. 设变量
+2. 求 $X=, Y=$
+3. 求 $|J|$
+4. 代入得 $f(u, v)=f_X(\cdots)f_Y(\cdots)|J|$
+5. 求边际密度得 $f_U(u)$
+
+* 例 8：设 $X, Y$ 独立且均服从 $N(0, \sigma^2)$，求 $Z=\sqrt{X^2+Y^2}$ 的概率密度
+
+  解：
+
+  $Z\geqslant 0$ 时 $Z$ 的分布函数为
+
+  $F_Z(z)=P(\sqrt{X^2+Y^2}\leqslant z)=\iint_{\sqrt{X^2+Y^2}\leqslant z}f_X(x)f_Y(y)dxdy=\frac{1}{2\pi\sigma^2}\iint_D e^{-\frac{x^2+y^2}{2\sigma^2}}dxdy$
+
+  换极坐标
+
+  $F_Z(z)=\int_{0}^{2\pi}\int_0^z \frac{1}{2\pi\sigma^2} e^{-\frac{\rho^2}{2\sigma^2}}d\rho d\theta=\int_0^z \frac{\rho}{\sigma^2}e^{-\frac{\rho^2}{2\sigma^2}}d\rho=\int_0^z e^{-\frac{\rho^2}{2\sigma^2}}d\frac{\rho^2}{2\sigma^2}=1-e^{-\frac{z^2}{2\sigma^2}}$
+
+  $\therefore f_Z(z)=F_Z'(z)=\begin{cases}\frac{z}{\sigma^2}e^{-\frac{z^2}{2\sigma^2}} & z\geqslant 0\\ 0 & z<0 \end{cases}$
+
+  这样的分布称为瑞利分布
+
+  ![](./images/3-6-5.png)
+
+* 例 9：设 $X, Y$ 独立，$X\sim U(0, 1), Y\sim EXP(1)$，求 $Z=X+Y$ 的密度
+
+  解：
+
+  $f_X(x)=\begin{cases}1 & 0\leqslant x\leqslant 1\\ 0 & 其他 \end{cases}, f_Y(y)=\begin{cases}e^{-y} & y>0\\ 0 & y\leqslant 0 \end{cases}$
+
+  卷积公式：$f_Z(z)=\int_{-\infin}^\infin f_X(x)f_Y(z-x)dx$​
+
+  找积分范围：$\begin{cases}0\leqslant x\leqslant 1\\ y=z-x>0 \end{cases}\Rightarrow \begin{cases}0\leqslant x\leqslant 1\\ z>x\end{cases}$
+
+  ![](./images/3-6-6.png)
+
+  $\therefore f_Z(z)=\begin{cases}\int_0^z f_X(x)f_Y(z-x)dx & 0\leqslant z\leqslant 1\\ \int_0^1 f_X(x)f_Y(z-x)dx & z>1\\ 0 & z<0 \end{cases}=\begin{cases}1-e^{-z} & 0\leqslant z\leqslant 1\\ e^{-z}(e-1) & z>1\\ 0 & z<0 \end{cases}$
+
+  另一条卷积公式：$f_Z(z)=\int_{-\infin}^\infin f_X(z-y)f_Y(y)dy$
+
+  $\begin{cases}0\leqslant z-y\leqslant 1\\ y>0 \end{cases}\Rightarrow \begin{cases}z-1\leqslant y\leqslant z\\ y>0\end{cases}$​
+
+  ![](./images/3-6-7.png)
+
+  $f_Z(z)=\begin{cases}\int_0^z e^{-y}dy & 0\leqslant z\leqslant 1\\ \int _{z-1}^z e^{-y}dy & z>1\\ 0 & z<0 \end{cases}=\begin{cases}1-e^{-z} & 0\leqslant z\leqslant 1\\ e^{-z}(e-1) & z>1\\ 0 & z<0 \end{cases}$
+
+---
+
+### 3.7 极值和顺序统计量
+
+#### 3.7.1 极值 $\max(X, Y)$ 和 $\min(X, Y)$ 的分布
+
+1. $X\sim F_X(x), Y\sim F_Y(y)$​ 且 $X, Y$​ 独立
+
+   $F_{\max}(z)=P(\max(X, Y)\leqslant z)=P(X\leqslant z, Y\leqslant z)=F_X(z)F_Y(z)$
+
+   $F_{\min}(z)=P(\min(X, Y)\leqslant z)=1-P(\min(X, Y)>z)=1-P(X>z, Y>z)=1-[1-F_X(z)]\cdot[1-F_Y(z)]$
+
+2. $X_i\sim F_{X_i}(x), i=1, 2, \dots, n$​ 且 $X_1, X_2, \dots, X_n$​ 相互独立
+
+   $F_{\max}(z)=P(\max(X_1, X_2, \dots, X_n)\leqslant z)=\prod_{i=1}^n F_{X_i}(z)$
+
+   $F_{\min}(z)=P(\min(X_1, X_2, \dots, X_n)\leqslant z)=1-\prod_{i=1}^n [1-F_{X_i}(z)]$
+
+   * $X_1, X_2, \dots, X_n$ 独立同分布时
+
+     $F_{\max}(z)=[F(z)]^n$
+
+     $F_{\min}(z)=1-[1-F(z)]^n$
+
+     $f_{\max}(z)=n[F(z)]^{n-1}f(z)$
+
+     $f_{\min}(z)=n[1-F(z)]^{n-1}f(z)$
+
+3. $X, Y$​ 独立且概率密度均为 $f(x)$​
+
+   $f_{\max}(z)=F'_{\max}(z)=2f(z)F(z)=2f(z)\int_{-\infin}^z f(t)dt$
+
+   $f_{\min}(z)=F'_{\min}(z)=2f(z)[1-F(z)]=2f(z)[1-\int_{-\infin}^z f(t)dt]$
+
+#### 3.7.2 顺序统计量 $X_{(k)}$ 的分布
+
+* 概念
+
+  将独立同分布的 r.v. $X_1, X_2, \dots, X_n$ 从小到大排序为 $X_{(1)}, X_{(2)}, \dots, X_{(n)}$
+
+  最小值 $X_{(1)}=\min\{X_1, X_2, \dots, X_n\}$，最大值 $X_{(n)}=\max\{X_1, X_2, \dots, X_n\}$
+
+  若 $n=2m+1$，则中位数为 $X_{(m+1)}$
+
+* 求 $X_{(k)}$​ 的密度
+
+  ![](./images/3-7-1.png)
+
+  $P(x\leqslant X_{(k)}\leqslant x+dx)=P(第k个在 x\sim x+dx)P(k-1 个在 x 左边)P(n-k 个在 x 右边)$
+
+  $=\int_{x}^{x+dx} f(x)dx\cdot F^{k-1}(x)\cdot[1-F(x)]^{n-k}\cdot C_n^1C_{n-1}^{k-1}$
+
+  $=f(x)dx\cdot F^{k-1}(x)\cdot[1-F(x)]^{n-k}\cdot C_n^1C_{n-1}^{k-1}=f_k(x)dx$
+
+  $\therefore f_k(x)=\frac{n!}{(k-1)!(n-k)!}f(x)F^{k-1}(x)[1-F(x)]^{n-k}$
+
+* $[0, 1]$​​ 区间上均匀分布的 $f_k(x)$​​
+
+  $F(x)=\begin{cases}x & 0\leqslant x\leqslant 1\\ 0 & 其他 \end{cases}$
+
+  代入公式得 $f_k(x)=\frac{n!}{(k-1)!(n-k)!}x^{k-1}(1-x)^{n-k}, 0\leqslant x\leqslant 1$，即 $Beta(k, n-k+1)$
+
+  推论：因为密度函数积分 = 1
+  $$
+  \int_0^1 x^{k-1}(1-x)^{n-k}dx=\frac{(k-1)!(n-k)!}{n!}
+  $$
+
+* $U=X_{(n)}, V=X_{(1)}$ 求 $f(u, v)$
+
+  ![](./images/3-7-2.png)
+
+  $P(v\leqslant X_{(1)}\leqslant v+dv, u\leqslant X_{(n)}\leqslant u+du)=C_n^1C_{n-1}^1\cdot f(v)dv\cdot[F(u)-F(v)]^{n-2}\cdot f(u)du=f(u, v)dudv$
+
+  $\therefore f(u, v)=n(n-1)f(u)f(v)[F(u)-F(v)]^{n-2}, u\geqslant v$
+
+  对于均匀分布 $U(0, 1): f(u, v)=n(n-1)(u-v)^{n-2}, 0\leqslant v\leqslant u\leqslant 1$
+
+---
+
+### 3.8 第三章习题
+
+1. 已知 $(X, Y)$​ 的联合密度为 $f(x, y)=\begin{cases}e^{-x-y} & x>0, y>0\\ 0 & 其他 \end{cases}$，问 $X, Y$ 是否独立
+
+   解：看 $f(x, y)$ 是不是等于 $f_X(x)f_Y(y)$
+
+   求边际密度：
+
+   $f_X(x)=\int_{-\infin}^\infin f(x, y)dy=\int_0^\infin e^{-x-y}dy=e^{-x}, x>0$
+
+   $f_Y(y)=\int_{-\infin}^\infin f(x, y)dx=\int_0^\infin e^{-x-y}dx=e^{-y}, y>0$
+
+   $\therefore f(x, y)=f_X(x)f_Y(y)$，$X, Y$ 独立
+
+2. 设 $(X, Y)$ 的联合密度为 $f(x, y)$，求证 $X, Y$ 独立的充要条件为 $f(x, y)$ 可分离变量，即 $f(x, y)=g(x)h(y)$
+
+   证明：
+
+   充分性：$X, Y$ 独立 $\Rightarrow f(x, y)=f_X(x)f_Y(y)$
+
+   必要性：令 $a=\int_{-\infin}^\infin g(x)dx, b=\int_{-\infin}^\infin h(y)dy$
+
+   $\therefore ab=\int_{-\infin}^\infin\int_{-\infin}^\infin g(x)h(y)dxdy=\int_{-\infin}^\infin\int_{-\infin}^\infin f(x, y)dxdy=1$
+
+   $f_X(x)=\int_{-\infin}^\infin f(x, y)dy=g(x)\int_{-\infin}^\infin h(y)dy=b\cdot g(x)$​
+
+   $f_Y(y)=\int_{-\infin}^\infin f(x, y)dx=h(y)\int_{-\infin}^\infin g(x)dx=a\cdot h(y)$
+
+   $\therefore f_X(x)f_Y(y)=ab\cdot g(x)h(y)=f(x, y)$
+
+   $\therefore X, Y$ 独立
+
+3. 设 $(X, Y)$ 服从圆域 $G: x^2+y^2\leqslant 1$ 上的均匀分布，求 $f_{X|Y}(x|y)$
+
+   解：
+
+   $f(x, y)=\begin{cases}\frac 1\pi & x^2+y^2\leqslant 1\\ 0 & 其他 \end{cases}$
+
+   $f_Y(y)=\int_{-\sqrt{1-y^2}}^{\sqrt{1-y^2}} \frac 1\pi dx=\begin{cases}\frac{2\sqrt{1-y^2}}{\pi} & -1\leqslant y\leqslant 1\\0 & 其他 \end{cases}$
+
+   $\therefore f_{X|Y}(x|y)=\begin{cases}\frac{f(x, y)}{f_Y(y)}=\begin{cases}\frac{1}{2\sqrt{1-y^2}} & -\sqrt{1-y^2}\leqslant x\leqslant \sqrt{1-y^2}\\0 & 其他 x \end{cases} & -1\leqslant y\leqslant 1\\ 0 & 其他 \end{cases}$
+
+---
+
+## 第四章 随机变量的数字特征
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
