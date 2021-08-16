@@ -2230,6 +2230,567 @@ $$
 
 ## 第四章 随机变量的数字特征
 
+### 4.1 随机变量的期望
+
+#### 4.1.1 离散型随机变量的期望
+
+* 设 r.v. $X$ 的频率函数为
+
+  | $X$  | $x_1$ | $x_2$ | $\cdots$ |
+  | :--: | :---: | :---: | :------: |
+  | $p$  | $p_1$ | $p_2$ | $\cdots$ |
+
+  若 $\sum_{k=1}^\infin |x_k|p_k<\infin$（绝对收敛），则称 $E(X)=\sum_{k=1}^\infin x_kp_k$ 为 $X$ 的数学期望
+
+* 几种分布的期望
+
+  |     $X$      |  $E(X)$   |
+  | :----------: | :-------: |
+  | $P(\lambda)$ | $\lambda$ |
+  |  $b(n, p)$   |   $np$    |
+
+#### 4.1.2 连续型随机变量的期望
+
+* 定义
+
+  若 $\int_{-\infin}^\infin |x|f(x)dx<\infin$，则 $E(X)=\int_{-\infin}^\infin xf(x)dx$ 为 $X$ 的期望
+
+* 几种分布的期望
+
+  |        $X$         |      $E(X)$      |
+  | :----------------: | :--------------: |
+  |     $U(a, b)$      | $\frac{a+b}{2}$​  |
+  | $N(\mu, \sigma^2)$ |      $\mu$​       |
+  |   $EXP(\lambda)$   | $\frac 1\lambda$ |
+  |      柯西分布      |      不存在      |
+
+* 马尔科夫不等式
+
+  设 $X$​ 满足 $P(X\geqslant 0)=1$​ 且 $E(X)$​ 存在，则 $P(X\geqslant t)\leqslant \frac{E(X)}{t}$​
+  
+  证明：
+  
+  $E(X)=\int_0^\infin xf(x)dx=\int_0^t xf(x)dx+\int_t^\infin xf(x)dx$​
+  
+  $\geqslant \int_t^\infin xf(x)dx\geqslant t\int_t^\infin f(x)dx=tP(X\geqslant t)$
+  
+  $\therefore P(X\geqslant t)\leqslant \frac{E(X)}{t}$
+
+#### 4.1.3 随机变量函数的期望
+
+* $Y=g(X)$，则 $Y$ 的期望为
+
+  * $X$ 离散
+
+    $E(Y)=\sum_{k=1}^\infin g(x_k)p_k$
+
+  * $X$ 连续
+
+    $E(Y)=\int_{-\infin}^\infin g(x)f(x)dx$
+
+  二元情况同理：$E(Z)=\int_{-\infin}^\infin\int_{-\infin}^\infin g(x, y)f(x, y)dxdy$
+
+* 已知 $f(x, y)$
+
+  * $E(X)=\int_{-\infin}^\infin\int_{-\infin}^\infin xf(x, y)dxdy$
+  * $E(Y)=\int_{-\infin}^\infin\int_{-\infin}^\infin yf(x, y)dxdy$
+
+#### 4.1.4 数学期望的基本性质
+
+1. $a\leqslant X\leqslant b$，则 $a\leqslant E(X)\leqslant b$
+
+2. $c$ 为常数，则 $E(cX)=cE(X)$
+
+3. $E(X+Y)=E(X)+E(Y)$​
+
+   $E[g_1(X)\pm g_2(X)]=E[g_1(X)]\pm E[g_2(X)]$​
+
+   2, 3 为期望的线性性质，即线性变换的期望等于期望的线性变换
+
+4. $X, Y$ 独立，则 $E(XY)=E(X)E(Y)$​
+
+   逆命题不成立
+
+   不独立时 $E(XY)=Cov(X, Y)+E(X)E(Y)=\iint xyf(x, y)dxdy$
+
+* 推论 1
+
+  若 $X=c$，则 $E(X)=c$
+
+* 推论 2
+
+  设 $a_1, a_2, \dots, a_n$ 为常数，$X_1, X_2, \dots, X_n$ 为 r.v.，则 $E(\sum_{i=1}^n a_iX_i)=\sum_{i=1}^n a_iE(X_i)$
+
+* 推论 3
+
+  设 $X_1, X_2, \dots, X_n$ 独立，则 $E(X_1X_2\cdots X_n)=E(X_1)E(X_2)\cdots E(X_n)$
+
+
+
+* 例 1：公交车有 20 名乘客，途中有 10 站，若没人下车则不停。每位乘客在任一车站下车的概率等可能。以 $X$ 表示停车的次数，求 $E(X)$
+
+  解：
+
+  设 $X_i=\begin{cases}1 & 第 i 站有人下车\\ 0 & 第 i 站没人下车 \end{cases}$
+
+  $\because X_i=0\Leftrightarrow 20$ 名乘客都不在第 $i$ 站下车
+
+  $\therefore P(X_i=0)=(\frac {9}{10})^{20}, P(X_i=1)=1-(\frac{9}{10})^{20}, i=1, 2, \dots, 10$
+
+  $\therefore E(X_i)=0\cdot(\frac {9}{10})^{20}+1\cdot [1-(\frac {9}{10})^{20}]=1-(\frac {9}{10})^{20}$
+
+  $\therefore E(X)=10E(X_i)=8.784$
+
+  相似应用：超几何分布的期望 $E(X)=\sum_{k=0}^n \frac{C_M^kC_{N-M}^{N-k}}{C_N^n}=n\frac MN$
+
+* 例 2：$f(x)=\begin{cases}2x & 0<x<1\\ 0 & 其他 \end{cases}$
+
+  求 (1) $E(2X-1)$ (2) $E[(x-2)^2]$
+
+  解：(1) 求 $E(X)$​ (2) 性质
+
+  (1)
+
+  $E(X)=\int_0^1 x\cdot 2xdx=\frac 23$
+
+  $\therefore E(2X-1)=2E(X)-1=\frac 13$​
+
+  (2)
+
+  $E(X^2)=\int_0^1 x^2\cdot 2xdx=\frac 12$
+
+  $\therefore E[(x-2)^2]=E(x^2-4x+4)=E(X^2)-4E(X)+4=\frac{11}{6}$
+
+---
+
+### 4.2 方差与标准差
+
+* 定义
+
+  1. 方差
+
+     对 r.v. $X$，若 $D(X)=Var(X)=E[X-E(X)]^2$ 存在，则称 $D(X)$ 为 $X$ 的方差
+
+  2. 标准差
+
+     $\sigma_X=\sqrt{D(X)}$ 量纲同随机变量的量纲
+
+  3. 意义
+
+     $X$ 偏离均值的平均大小
+
+     离散程度，越大越分散
+
+* 计算
+
+  1. 离散型
+
+     $P(X=X_k)=p_k$，则 $D(X)=\sum_{k=1}^n[X_k-E(X)]^2\cdot p_k$
+
+  2. 连续型
+
+     设 $X$ 的概率密度为 $f(x)$，则 $D(X)=\int_{-\infin}^\infin[X-E(X)]^2f(x)dx$
+
+  3. $D(X)=E(X^2)-E^2(X)$​
+
+  
+  * 例 1：$X\sim P(\lambda)$，求 $D(X)$
+  
+    解：
+  
+    $E(X)=\lambda$
+  
+    $E(X^2)=E[X(X-1)+X]=E(X)+E[X(X-1)]=\lambda+\sum_{k=0}^\infin k(k-1)\frac{\lambda^k}{k!}e^{-\lambda}$
+  
+    $=\lambda+\lambda^2\cdot e^{-\lambda}\sum_{k=2}^\infin \frac{\lambda^{k-2}}{(k-2)!}=\lambda+\lambda^2\cdot e^{-\lambda}\cdot e^\lambda=\lambda+\lambda^2$
+  
+    $\therefore D(X)=E(X^2)-E^2(X)=\lambda$
+    
+  * 例 2：$X\sim U(a, b)$，求 $D(X)$
+  
+    解：
+  
+    $E(X)=\frac{a+b}{2}$
+  
+    $E(X^2)=\int_a^b x^2f(x)dx=\int_a^b\frac{x^2}{b-a}dx=\frac{a^2+ab+b^2}{3}$
+  
+    $\therefore D(X)=E(X^2)-E^2(X)=\frac{(b-a)^2}{12}$​
+  
+  * 例 3：$f(x)=\begin{cases}x & 0\leqslant x\leqslant 1\\ 2-x & 1<x<2\\ 0 & 其他 \end{cases}$，求 $E(X), D(X)$
+  
+    解：
+  
+    $E(X)=\int_0^1 x\cdot x dx+\int_1^2 x\cdot(2-x)dx=1$
+  
+    $E(X^2)=\int_0^1 x^2\cdot x dx+\int_1^2 x^2\cdot(2-x)dx=\frac 76$
+  
+    $D(X)=E(X^2)-E^2(X)=\frac 16$
+  
+* 方差的性质
+
+  1. $X=c, D(X)=0$
+
+     但是 $D(X)=0$ 不能推出 $X=c$，可以推出 $P(X=\mu)=1$
+
+  2. $D(cX)=c^2D(X)$
+
+     $D(aX+b)=a^2D(X)$，上下移动不影响方差
+
+  3. $D(X\pm Y)=D(X)+D(Y)\pm 2E[(X-E(X))(Y-E(Y))]=D(X)+D(Y)\pm 2Cov(X, Y)$​
+
+     $X, Y$​ 独立或者不相关时 $D(X\pm Y)=D(X)\pm D(Y)$​
+
+* 几种分布的方差
+
+  * $X\sim U(a, b), D(X)=\frac{(b-a)^2}{12}$​
+  * $X\sim P(\lambda), D(X)=\lambda$
+  * $X\sim EXP(\lambda), D(X)=\frac{1}{\lambda^2}$
+  * $X\sim b(n, p), D(X)=np(1-p)$
+  * $X\sim N(\mu, \sigma^2), D(X)=\sigma^2$
+
+* 切比雪夫不等式
+
+  $E(X)=\mu, D(X)=\sigma^2$，则 $\forall\varepsilon>0, P(|X-\mu|\geqslant\varepsilon)\leqslant\frac{\sigma^2}{\varepsilon^2}$
+
+  证明：
+
+  对 $(X-\mu)^2$​ 应用马尔科夫不等式：
+
+  $P((X-\mu)^2\geqslant\varepsilon^2)\leqslant\frac{E(X-\mu)^2}{\varepsilon^2}=\frac{\sigma^2}{\varepsilon^2}$
+
+  由于 $(X-\mu)^2\geqslant\varepsilon^2$ 等价于 $|X-\mu|\geqslant \varepsilon$
+
+  $\therefore P(|X-\mu|\geqslant\varepsilon)\leqslant\frac{\sigma^2}{\varepsilon^2}$
+
+---
+
+### 4.3 协方差与相关系数
+
+#### 4.3.1 协方差
+
+* 定义
+
+  若 $X, Y$ 的方差都存在，记 $Cov(X, Y)=E[(X-E(X))(Y-E(Y))]$ 为 $X, Y$ 的协方差
+
+* 性质
+
+  1. $X, Y$ 独立 $\Rightarrow Cov(X, Y)=0$
+
+  2. $Cov(X, Y)=Cov(Y, X)$
+
+  3. $D(X)=E[X-E(X)]^2=Cov(X, X)$
+
+  4. <span style="color:red">$Cov(X, Y)=E(XY)-E(X)E(Y)$​</span>​
+
+  5. $Cov(aX, bY)=abCov(X, Y)$
+
+  6. $Cov(X_1+X_2, Y)=Cov(X_1, Y)+Cov(X_2, Y)$
+
+  7. 双线性性
+
+     $U=a+\sum_{i=1}^nb_iX_i, V=c+\sum_{j=1}^m d_jY_j$
+
+     $Cov(U, V)=\sum_{i=1}^n\sum_{j=1}^m b_id_j Cov(X_i, Y_j)$
+
+  8. $Cov(X, a)=0$
+
+#### 4.3.2 相关系数
+
+* 定义
+
+  $X^\ast=\frac{X-E(X)}{\sqrt{D(X)}}, Y^\ast=\frac{Y-E(Y)}{\sqrt{D(Y)}}$
+
+  称 $\rho_{XY}=Cov(X^\ast, Y^\ast)=\frac{Cov(X, Y)}{\sqrt{D(X)D(Y)}}$ 为 $X, Y$ 的相关系数 $Corr(X, Y)$
+
+  或者用公式：
+  $$
+  r=\frac{\sum_{i=1}^n(X_i-\bar X)(Y_i-\bar Y)}{\sqrt{\sum_{i=1}^n(X_i-\bar X)^2\sum_{i=1}^n(Y_i-\bar Y)^2}}
+  $$
+
+* 均方误差
+
+  用 $\hat Y=a+bX$​ 线性拟合，记均方误差 $e=E[(Y-\hat Y)^2]$​​
+
+  $e$ 最小时 $\begin{cases}b_0=\frac{Cov(X, Y)}{D(X)}\\ a_0=E(Y)-bE(X)=E(Y)-E(X)\frac{Cov(X, Y)}{D(X)} \end{cases}$
+
+  $\min_{a, b}e=D(Y)(1-\rho_{XY}^2)$
+
+* 性质
+
+  1. $-1\leqslant\rho_{XY}\leqslant 1$
+  
+  2. $|\rho_{XY}|=1\Leftrightarrow Y=a+bX$​ 几乎处处线性相关
+  
+  3. $\rho_{XY}=1, X, Y$​ 正相关
+  
+     $\rho_{XY}=-1, X, Y$​ 负相关
+  
+     $\rho_{XY}=0, X, Y$​​ 不相关
+  
+     不相关指的是没有<span style="color:blue">线性关系</span>
+  
+  4. 二维正态 $(X, Y)\sim N(\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho)$，则 $\rho_{XY}=\rho$
+  
+  5. 独立与不相关
+  
+     独立一定不相关，不相关不一定独立
+  
+     独立：没有任何关系
+  
+     不相关：没有线性关系
+  
+     特例：二维正态
+
+#### 4.3.3 矩
+
+1. $k$ 阶原点矩（$k$ 阶矩）
+
+   $E(X^k), k=1, 2,\dots$
+
+2. $k$ 阶中心矩
+
+   $E[(X-E(X))^k], k=2, 3,\dots$
+
+3. $k+\ell$ 阶混合矩
+
+   $E(X^kY^\ell), k, \ell=1, 2, \dots$
+
+4. $k+\ell$ 阶混合中心矩
+
+   $E[(X-E(X))^k(Y-E(Y))^\ell], k, \ell=1, 2, \dots$
+
+5. $E(X)$：一阶矩
+
+   $D(X)$​：二阶中心矩
+
+   $Cov(X, Y)$：二阶中心混合矩
+
+#### 4.3.4 协方差矩阵
+
+* 定义
+
+  对于二维随机变量 $(X_1, X_2)$，记
+
+  $c_{11}=E[(X_1-E(X_1))^2]=D(X_1)$
+
+  $c_{12}=E[(X_1-E(X_1))(X_2-E(X_2))]=Cov(X_1, X_2)$
+
+  $c_{21}=E[(X_2-E(X_2))(X_1-E(X_1))]=Cov(X_2, X_1)$
+
+  $c_{22}=E[(X_2-E(X_2))^2]=D(X_2)$
+
+  记 $C=Cov(X, X)=\begin{bmatrix}c_{11} & c_{12}\\ c_{21} & c_{22} \end{bmatrix}$ 为 $X=(X_1, X_2)$ 的协方差矩阵
+
+* 性质
+
+  1. 对称：$C=C^T$
+  2. 正定：$C\geqslant 0$
+
+---
+
+### 4.4 条件期望
+
+* 定义
+
+  $X=x$ 的条件下，$Y$​ 的条件期望定义为
+
+  * 离散
+
+    $E(Y|X=x)=\sum_y yp_{Y|X}(y|x)$​
+
+  * 连续
+
+    $E(Y|X=x)=\int_{-\infin}^\infin yf_{Y|X}(y|x)dy$
+
+    求出来是一个 $x$​ 的函数
+
+    不同的 $X=x$，$E(Y|X=x)$ 随之变化，是 r.v.
+
+* $Y$ 的函数 $h(Y)$​ 的期望
+
+  * 离散
+
+    $E[h(Y)|X=x]=\sum_y h(y)p_{Y|X}(y|x)$
+
+  * 连续
+
+    $E(Y|X=x)=\int_{-\infin}^\infin h(y)f_{Y|X}(y|x)dy$
+
+* 性质
+
+  1. 全期望公式
+
+     $E(Y)=E[E(Y|X)]$
+
+     <span style="color:blue">外层 $X$ 内层 $Y$​</span>
+
+     证明（离散情形）：
+
+     $E[E(Y|X)]=\sum_xE(Y|X=x)p_X(x)=\sum_x[\sum_y yp_{Y|X}(y|x)]p_X(x)$
+
+     $=\sum_yy\sum_xp_{Y|X}(y|x)p_X(x)\xlongequal{全概率公式}\sum_yyp_Y(y)=E(Y)$​
+
+  2. $D(Y)=D[E(Y|X)]+E[D(Y|X)]$
+
+     * 随机和
+
+       $T=\sum_{i=1}^N X_i$，$N$ 为 r.v. 且具有有限期望与方差，$X_i(i=1, 2,\dots)$ 具有相同的均值 $E(X)$ 和方差 $D(X)$，$X_i$ 与 $N$​ 独立
+
+     * 举例：进入商场的顾客数为 $N$，第 $i$ 个顾客的消费数额为 $X_i$
+
+     * 计算
+
+       $E(T|N=n)=E(\sum_{i=1}^n X_i)=\sum_{i=1}^n E(X)=nE(X)$
+
+       $\therefore E(T|N)=NE(X)$​
+
+       $\therefore E(T)=E[E(T|N)]=E[NE(X)]=E(X)E(N)$
+
+       即：完成 $N$ 个工作的平均时间是随机数 $N$​ 的平均值乘以完成一个工作的平均时间
+
+       $D[E(T|N)]=D[NE(X)]=E^2(X)D(N)$
+
+       $D(T|N=n)=D(\sum_{i=1}^n X_i)=\sum_{i=1}^nD(X)=nD(X)$
+
+       $\therefore D(T|N)=ND(X), E[D(T|N)]=E(N)D(X)$
+
+       $\therefore D(T)=D[E(T|N)]+E[D(T|N)]=E^2(X)D(N)+E(N)D(X)$
+
+       即：总时间 $T$ 的不确定性来源于 $N$ 的随机性和 $X$ 的随机性（若固定 $N=n$，则 $D(T)=nD(X)$）
+
+---
+
+### 4.5 第四章习题
+
+1. $n$ 个人，$n$ 份礼物，任意取，$X$ 为拿对自己礼物的人数，求 $E(X), D(X)$
+
+   解：
+
+   记 $X_i=\begin{cases}1 & 第i个人拿对自己的礼物\\0 & 第i个人未拿对自己的礼物 \end{cases}$
+
+   设 $X=\sum_{i=1}^n X_i$​，则 $E(X_i)=1\cdot\frac 1n+0\cdot\frac{n-1}{n}=\frac 1n$
+
+   $\therefore E(X)=E(\sum_{i=1}^n X_i)=\sum_{i=1}^nE(X_i)=1$
+
+   $D(X)=\sum_{i=1}^n D(X_i)+2\sum_{i<j}Cov(X_i, X_j)$
+
+   计算 $X_iX_j$ 的期望：
+
+   | $X_iX_j$ |          0           |         1          |
+   | :------: | :------------------: | :----------------: |
+   |   $p$    | $1-\frac{1}{n(n-1)}$ | $\frac{1}{n(n-1)}$ |
+
+   $\therefore E(X_iX_j)=\frac{1}{n(n-1)}$
+
+   $\therefore Cov(X_i, X_j)=\frac{1}{n(n-1)}-\frac 1n\cdot\frac 1n=\frac{1}{n^2(n-1)}$
+
+   $\because D(X_i)=E(X_i^2)-E^2(X_i)=\frac 1n-\frac{1}{n^2}=\frac{n-1}{n^2}$
+
+   $\therefore D(X)=n\frac{n-1}{n^2}+2\sum_{i<j}\frac{1}{n^2(n-1)}=\frac{n-1}{n}+2C_n^2\frac{1}{n^2(n-1)}=\frac{n-1}{n}+\frac 1n=1$
+
+2. $(X, Y)$ 的分布如下所示，求 (1) $P(X=2Y)$ (2) $Cov(X-Y, Y)$
+
+   | $X\backslash Y$ |       0       |     1      |       2       |            |
+   | :-------------: | :-----------: | :--------: | :-----------: | :--------: |
+   |        0        |  $\frac 14$   |     0      |  $\frac 14$   | $\frac 12$ |
+   |        1        |       0       | $\frac 13$ |       0       | $\frac 13$ |
+   |        2        | $\frac 1{12}$ |     0      | $\frac 1{12}$ | $\frac 16$ |
+   |                 |  $\frac 13$   | $\frac 13$ |  $\frac 13$   |            |
+   
+   解：
+   
+   (1) $P(X=2Y)=P(X=0, Y=0)+P(X=2, Y=1)=\frac 14$
+   
+   (2) 求 $X, Y$​ 的边际分布和 $XY$​​ 的分布​
+   
+   | $XY$ |       0       |     1      |       4       |
+   | :--: | :-----------: | :--------: | :-----------: |
+   | $p$  | $\frac 7{12}$ | $\frac 13$ | $\frac 1{12}$ |
+   
+   $\therefore E(X)=\frac 23, E(Y)=1, D(Y)=\frac 23, E(XY)=\frac 23$
+   
+   $\therefore Cov(X-Y, Y)=Cov(X, Y)-Cov(Y, Y)=E(XY)-E(X)E(Y)-D(Y)=-\frac 23$​
+   
+3. $(X, Y)\sim p(x, y)=\begin{cases}\frac 18(x+y) & 0<x<2, 0<y<2\\0 & 其他 \end{cases}$，求 $\rho_{XY}$
+
+   解：
+
+   $E(X)=E(Y)=\int_0^2\int_0^2x\cdot\frac 18(x+y)dxdy=\frac 76$
+
+   $E(X^2)=E(Y^2)=\int_0^2\int_0^2x^2\cdot\frac 18(x+y)dxdy=\frac 53$
+
+   $\therefore D(X)=D(Y)=\frac 53-\frac{49}{36}=\frac{11}{36}$
+
+   $E(XY)=\int_0^2\int_0^2xy\cdot\frac 18(x+y)dxdy=\frac 43$
+
+   $\therefore Cov(X, Y)=\frac 43-(\frac 76)^2=-\frac{1}{36}$
+
+   $\therefore \rho_{XY}=\frac{Cov(X, Y)}{\sqrt{D(X)D(Y)}}=-\frac{1}{11}$
+
+4. 设二维连续随机变量 $(X, Y)$ 的联合密度函数为 $p(x, y)=x+y, 0<x, y<1$，求 $E(X|Y=0.5)$
+
+   解：先求 $f_{X|Y}(x|y)$
+
+   $0<y<1$ 时 $f_{X|Y}(x|y)=\frac{p(x, y)}{p(y)}=\frac{x+y}{\int_0^1 (x+y) dx}=\frac{x+y}{\frac 12+y}$
+
+   $\therefore f_{X|Y}(x|y=\frac 12)=\begin{cases}x+\frac 12 & 0<x<1\\0 & 其他 \end{cases}$
+
+   $\therefore E(X|Y=0.5)=\int_0^1x(x+\frac 12)dx=\frac{7}{12}$
+
+5. 设 $E(Y), E[h(Y)]$ 存在，证明 $E[h(Y)|Y]=h(Y)$
+
+   证明：
+
+   $E[h(Y)|Y]$ 是 $h(Y)$ 的函数，记 $g(Y)=E[h(Y)|Y]$
+
+   $\because\forall y\in\R, h(y)$ 为实数
+
+   $\therefore g(y)=E[h(Y)|Y=y]=E[h(y)|Y=y]=h(y)$（常量的均值等于自己）
+
+   $g(Y)=E[h(Y)|Y]=h(Y)$
+
+6. 设 $X_1, X_2$ 独立且均服从参数为 $\frac 1\theta$ 的指数分布，求 $Y_1=4X_1-3X_2, Y_2=3X_1+X_2$ 的相关系数
+
+   解：先求 $Cov(Y_1, Y_2)$
+
+   设 $E(X_1)=E(X_2)=E, D(X_1)=D(X_2)=D$，$X_1, X_2$ 独立则 $Cov(X_1, X_2)=0$
+
+   $\therefore Cov(Y_1, Y_2)=Cov(4X_1-3X_2, 3X_1+X_2)=12Cov(X_1, X_1)-9Cov(X_1, X_2)+4Cov(X_1, X_2)-3Cov(X_2, X_2)$
+
+   $=12D-3D=9D$
+
+   $\therefore \rho_{Y_1Y_2}=\frac{Cov(Y_1, Y_2)}{\sqrt{D(Y_1)D(Y_2)}}=\frac{9D}{\sqrt{(16D+9D)(9D+D)}}=\frac{9}{50}\sqrt{10}$
+
+   结果与服从什么分布无关
+
+7. 设 $X$ 服从标准柯西分布，$f(x)=\frac 1\pi\cdot\frac{1}{1+x^2}, x\in\R$，求 $E(X)$
+
+   解：
+
+   $\int_{-\infin}^\infin |x|f(x)dx=\frac{2}{\pi}\int_0^\infin\frac{1}{1+x^2}d(x^2)=\frac 1\pi\ln(1+x^2)|_0^\infin=\infin$
+
+   $\therefore E(X)$ 不存在
+
+---
+
+## 第五章 大数定律和中心极限定理
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
