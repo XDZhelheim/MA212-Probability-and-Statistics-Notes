@@ -2775,6 +2775,169 @@ $$
 
 ## 第五章 大数定律和中心极限定理
 
+### 5.1 大数定律
+
+#### 5.1.1 背景
+
+1. 概率的产生
+
+   随机试验 $\to$ 统计数据 $\to$ 统计规律 $\to$ 频率稳定性 $\to$ 概率
+
+2. 频率稳定性
+
+   设 $n$ 次独立重复试验中事件 $A$ 发生的次数为 $n_A$，当 $n\to\infin$ 时
+   $$
+   \xi_n=\frac{n_A}{n}\to p
+   $$
+
+3. 依概率收敛
+
+   设 $\xi_1, \xi_2, \dots, \xi_n$ 为一列随机变量，若 $\forall\varepsilon>0$，有 $\lim_{n\to\infin}P(|\xi_n-\xi|\geqslant\varepsilon)=0$，则称随机变量列 $\{\xi_n\}$ 依概率收敛于 $\xi$，记作 $\xi_n\xrightarrow{P}\xi$
+   
+   * $\lim_{n\to\infin}P(|\xi_n-\xi|\geqslant\varepsilon)=0 \Leftrightarrow \lim_{n\to\infin}P(|\xi_n-\xi|<\varepsilon)=1$
+   
+   * 直观含义
+   
+     随着 $n$ 的增大，绝对误差 $|\xi_n-\xi|$ 较大的可能性越来越小
+   
+   * 抛硬币试验的频率稳定性 $\xi_n=\frac{n_A}{n}\xrightarrow{P}\frac 12$
+
+#### 5.1.2 大数定律
+
+1. 伯努利大数定律
+
+   设 $n_A$ 是 $n$ 次重复试验中事件 $A$ 发生的次数，且 $P(A)=p$，则 $\forall\varepsilon>0$，有
+   $$
+   \lim_{n\to\infin}P(|\frac{n_A}{n}-p|\geqslant\varepsilon)=0
+   $$
+
+   * 频率会依概率收敛于概率
+
+2. 切比雪夫大数定律
+
+   设 $\{X_n\}$ 为相互独立的随机变量列，且具有相同的期望和方差，记 $E(X_i)=\mu, D(X_i)=\sigma^2$，则 $\forall\varepsilon>0$ 有
+   $$
+   \lim_{N\to\infin} P(|\frac 1n\sum_{i=1}^nX_i-\mu |\geqslant\varepsilon)=0
+   $$
+
+3. 辛钦大数定律
+
+   设 $\{X_n\}$ 是独立同分布的随机变量列，$E(X_i)=\mu$ 存在，则 $\forall\varepsilon>0$ 有
+   $$
+   \lim_{N\to\infin} P(|\frac 1n\sum_{i=1}^nX_i-\mu |\geqslant\varepsilon)=0\\ \lim_{N\to\infin} P(|\frac 1n\sum_{i=1}^nX_i-\mu |<\varepsilon)=1
+   $$
+
+4. 大数定律的一般形式
+
+   若 $\{X_n\}$ 满足 $\lim_{n\to\infin}P(|\frac 1n\sum_{i=1}^n X_i-\frac 1n\sum_{i=1}^n E(X_i)|<\varepsilon)=1$，则称 $\{X_n\}$ 服从大数定律
+
+5. 马尔科夫大数定律
+
+   若 $\{X_n\}$ 满足 $\lim_{n\to\infin}\frac{1}{n^2}D(\sum_{i=1}^n X_i)=0$ 则 $\{X_n\}$ 服从大数定律
+
+---
+
+### 5.2 中心极限定理
+
+#### 5.2.1 背景
+
+现实中很多数量指标都服从或近似服从正态分布
+
+这些指标通常是由大量相互独立的随机因素综合影响而成，即 $Z=X_1+X_2+\cdots+X_n$
+
+中心极限定理研究的内容：$n\to\infin$ 时，什么情况下 $Z_n=\sum_{i=1}^n X_i$ 的极限分布为正态分布
+
+即 $Z_n=\frac{\sum_{k=1}^nX_k-\sum_{k=1}^n\mu_k}{\sqrt{\sum_{k=1}^n\sigma_k^2}}$ 是否服从标准正态分布
+
+* 按分布收敛
+
+  对于分布函数列 $\{F_n(x)\}$，若在 $F(x)$ 的连续点处都有 $\lim_{n\to\infin}F_n(x)=F(x)$，则称 $\{F_n(x)\}$ 弱收敛于 $F(x)$，记作 $F_n(x)\xrightarrow{w}F(x)$，相应，记 $X_n\xrightarrow{L}X$ 按分布收敛
+
+  依概率收敛于按分布收敛的关系：
+
+  * $X_n\xrightarrow{P}X\Rightarrow X_n\xrightarrow{L}X$
+  * $X_n\xrightarrow{P}a\Leftrightarrow X_n\xrightarrow{L}a$
+
+#### 5.2.2 中心极限定理
+
+* 定义
+
+  若 $Z_n$ 的分布函数 $F_n(x)$ 对任意 $x$ 满足
+  $$
+  \lim_{n\to\infin} F_n(x)=\lim_{n\to\infin} P(\frac{\sum_{k=1}^nX_k-\sum_{k=1}^n\mu_k}{\sqrt{\sum_{k=1}^n\sigma_k^2}}\leqslant x)=\int_{-\infin}^x\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}dt=\Phi(x)
+  $$
+  则称 $\{X_n\}$ 服从中心极限定理
+
+  * $Z_n$ 依分布收敛于标准正态分布
+
+* 独立同分布的中心极限定理（林德伯格-列维中心极限定理）
+
+  $\{X_n\}$ 为独立同分布的随机变量列，$E(X_k)=\mu, D(X_k)=\sigma^2>0\ (k=1, 2, \dots)$，则 $\{X_n\}$ 服从中心极限定理，即 $Z_n=\frac{\sum_{k=1}^n X_k-n\mu}{\sqrt n \sigma}$ 近似服从标准正态分布，或 $\sum_{k=1}^n$ 近似服从 $N(n\mu, n\sigma^2)$
+
+* 棣莫弗-拉普拉斯中心极限定理
+
+  设 $\{\eta_n\}$ 为服从 $B(n, p)$ 的随机变量列，则 $\forall x$，
+  $$
+  \lim_{n\to\infin} P(\frac{\eta_n-np}{\sqrt{np(1-p)}}\leqslant x)=\int_{-\infin}^x\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}dt=\Phi(x)
+  $$
+  即 $\eta_n$ 近似服从 $N(np, p(1-p))$
+
+* 例：某单位电话交换机有 500 部电话，在所有通话中有 96% 的通话是在各分机内进行的。假定每部分机是否需要打外线是相互独立的，问要配备多少条外线才能以 95% 的概率保证每个分机要用外线时不必等候？
+
+  解：
+
+  在任一时刻，记 $X_k=\begin{cases}1 & 第 k 台分机要用外线\\0 & 其他 \end{cases}$
+
+  则 $X_1, X_2, \dots, X_{500}$ 独立同分布，且 $P(X_k=0)=1-p=0.96, P(X_k=1)=p=0.04$
+
+  $\therefore E(X_k)=0.04, D(X_k)=0.0384$
+
+  由独立同分布的中心极限定理，$\sum_{k=1}^{500}X_k$ 近似服从 $N(20, 19.2)$
+  
+  设需要 $N$ 条外线才能满足要求，则应有 $P(\sum_{k=1}^n X_k\leqslant N)\geqslant 0.95$
+  
+  设 $Z_n=\sum_{k=1}^n X_k$，则 $P(Z\leqslant N)=P(\frac{Z-20}{\sqrt{19.2}}\leqslant \frac{N-20}{\sqrt{19.2}})\geqslant 0.95$
+  
+  $\therefore \Phi(\frac{N-20}{\sqrt{19.2}})\geqslant 0.95$，查表得 $\Phi(1.65)=0.95$
+  
+  $\therefore \frac{N-20}{\sqrt{19.2}}\geqslant 1.65\Rightarrow N\geqslant 27.23$
+  
+  $\therefore$ 至少应该配备 28 条外线
+
+---
+
+### 5.3 第五章习题
+
+1. 设 $\{X_n\}$ 是独立同分布的随机变量序列，其共同分布为 $P(X_n=\frac{2^k}{k^2})=\frac{1}{2^k}, k=1, 2, \dots$，问 $\{X_n\}$ 是否服从大数定律
+
+   解：
+
+   $E(X_n)=\sum_{k=1}^\infin\frac{2^k}{k^2}\cdot \frac{1}{2^k}=\frac{\pi^2}{6}<\infin$
+
+   $\therefore E(X_n)$ 存在，由辛钦大数定律知 $\{X_n\}$ 服从大数定律
+
+2. 每袋味精的净重为随机变量，平均重量为 100g，标准差为 10g，一箱内装有 200 袋味精，求一箱味精的净重大于 20500g 的概率
+
+   解：
+
+   设第 $i$ 袋味精的净重为 $X_i$，则 $X_i$ 独立同分布且 $E(X_1)=100, D(X_i)=100$
+
+   由独立同分布的中心极限定理，总净重 $Z=\sum_{i=1}^{200}X_i$ 近似服从 $N(20000, 20000)$
+
+   $\therefore P(Z>20500)=1-P(Z\leqslant 20500)=1-P(\frac{Z-20000}{100\sqrt 2}\leqslant \frac{20500-20000}{100\sqrt 2})=1-\Phi(3.54)=0.0002$
+
+   因此，一箱味精的净重大于 20500g 的概率为 0.0002
+
+---
+
+## 第六章 数理统计的基本概念与抽样分布
+
+### 6.2 数理统计的基本概念
+
+
+
+
+
 
 
 
