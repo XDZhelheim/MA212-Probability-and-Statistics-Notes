@@ -2934,67 +2934,254 @@ $$
 
 ### 6.2 数理统计的基本概念
 
+1. 总体
 
+   研究对象的数量指标 $X\sim F(x)$
 
+2. 个体
 
+   r.v. $X$ 的值
 
+   * 例：考察某班级学生的英语课程学习成绩 $X$，因为每个学生的成绩都在全班平均成绩 $\mu$ 的附近波动，所以总体可视为 $X\sim N(\mu, \sigma^2)$
 
+3. 抽样与样本
 
+   从研究对象中抽取 $n$ 个个体，观察它们的数量指标 $X_1, X_2,\dots, X_n$，这一过程称为抽样，$X_1, X_2, \dots, X_n$ 称为容量为 $n$ 的样本
 
+   * 抽样的特点
 
+     * 在相同条件下对总体 $X$ 进行 $n$ 次重复、独立的观察
+     * 独立性：各次取样的结果互不影响
+     * 代表性：每次取出的样本与总体有相同的分布
 
+   * 样本的二重性
 
+     * 观察前：$X_1, X_2, \dots, X_n$ 是相互独立，与总体同分布的随机变量
+     * 观察后：样本值 $x_1, x_2, \dots, x_n$ 是 $n$ 个具体的观察数据
 
+   * 例：某厂生产了一大批灯泡，现从中随机抽取 5 只进行检测，测得其寿命（小时）分别为 980、960、1030、1300、850
 
+     分析：
 
+     总体为灯泡的寿命 $X\sim N(\mu, \sigma^2)$
 
+     样本容量为 5，样本为 $X_1, X_2, X_3, X_4, X_5$
 
+     样本观察值为 $980, 960, 1030, 1300, 850$
 
+4. 样本的分布
 
+   样本 $X_1, X_2, \dots, X_n$ 为多维随机变量
 
+   * 若总体分布函数为 $F(x)$，则样本联合分布函数为 $F^\ast(x_1, x_2, \dots, x_n)=\prod_{i=1}^n F(x_i)$
 
+   * 若总体密度为 $f(x)$，则样本联合密度函数为 $f^\ast(x_1, x_2, \dots, x_n)=\prod_{i=1}^n f(x_i)$
 
+     
 
+   * 例：设 $X_1, X_2, \dots, X_n$ 为来自总体 $X\sim b(1, p), 0<p<1$ 的样本，求样本分布
 
+     解：
 
+     总体的频率函数 $P(X=1)=p, P(X=0)=1-p$
 
+     $\therefore P(X_1=x_1, X_2=x_2, \dots, X_n=x_n)=\prod_{i=1}^n p^{x_i}(1-p)^{1-x_i}=p^{\sum_{i=1}^n x_i}(1-p)^{n-\sum_{i=1}^n x_i}$
 
+5. 统计量
 
+   设 $X_1, X_2, \dots, X_n$ 为来自总体 $X\sim F(x)$ 的样本，$g(x_1, x_2, \dots, x_n)$ 为 $n$ 元函数，若 r.v. $g(X_1, X_2, \dots, X_n)$ 不含任何未知参数，则称 $g(X_1, X_2, \dots, X_n)$ 为统计量
 
+   例：样本的均值、最值、样本方差
 
+   统计量也有二重性
 
+   * 常用统计量
 
+     * 样本均值：$\bar X=\frac 1n\sum_{i=1}^n X_i$
+     * 样本方差：$S^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2$
+     * 样本 $k$ 阶矩：$A_k=\frac 1n \sum_{i=1}^n X_i^k$
+     * 样本 $k$ 阶中心矩：$B_k=\frac 1n \sum_{i=1}^n(X_i-\bar X)^k$
+     * 顺序统计量
+     * 极大值
+     * 极小值
 
+   * 样本矩的特性
 
+     总体 $k$ 阶矩 $\mu_k=E(A_k)=E(X^k)$
 
+     $X_1^k, X_2^k, \dots, X_n^k$ 独立，与 $X^k$ 同分布，由辛钦大数定律，$\forall k=1, 2, \dots$
 
+     $\lim_{n\to\infin} A_k=\frac 1n \sum_{i=1}^n X_i^k\xrightarrow{P}\mu_k$
 
+     $\lim_{n\to\infin}g(A_1, A_2, \dots, A_k)\xrightarrow{P}g(\mu_1, \mu_2, \dots, \mu_k)$
 
+   * 样本均值与样本方差的数字特征
 
+     设总体 $X$ 的方差和均值 $E(X)=\mu, D(X)=\sigma^2$ 均存在，$X_1, X_2, \dots, X_n$ 是来自总体 $X$ 的样本，则 
 
+     * $E(\bar X)=\mu, D(\bar X)=\frac{\sigma^2}{n}$
+     * $E(S^2)=\sigma^2, D(S^2)=\frac{2\sigma^4}{n-1}$
+     
+     证明：
+     
+     $E(\bar X)=E(\frac 1n\sum_{i=1}^n X_i)=\frac 1n\sum_{i=1}^n \mu=\mu$
+     
+     $D(\bar X)=D(\frac 1n\sum_{i=1}^n X_i)=\frac 1{n^2}\sum_{i=1}^n D(X_i)=\frac{\sigma^2}{n}$
 
+---
 
+### 6.3 抽样分布
 
+#### 6.3.1 $\chi^2$ 分布（卡方分布）
 
+* 定义
 
+  设 $X_1, X_2, \dots, X_n$ 是来自总体 $X\sim N(0, 1)$ 的样本，令 $\chi^2=X_1^2+X_2^2+\cdots+X_n^2$，称 $\chi^2$ 服从自由度为 $n$ 的 $\chi^2$ 分布，记作 $\chi^2\sim\chi^2(n)$
 
+* 密度函数
+  $$
+  f(y)=\begin{cases}\frac{1}{2^{\frac n2}\Gamma(\frac n2)}y^{\frac n2-1}e^{-\frac y2} & y>0\\0 & y\leqslant 0 \end{cases}
+  $$
+  ![](./images/6-3-1.png)
 
+* 自由度
 
+  * 直观理解：可独立变化的变量个数
+  * 严格理解：二次型 $X_1^2+X_2^2+\cdots+X_n^2$ 的秩
 
+* 性质
 
+  * 可加性
 
+    $\chi_1^2, \chi_2^2$ 独立且 $\chi_1^2\sim\chi^2(n_1), \chi_2^2\sim\chi^2(n_2)$，则 $\chi_1^2+\chi_2^2\sim\chi^2(n_1+n_2)$
 
+  * 数字特征
 
+    设 $\chi^2\sim\chi^2(n)$，则 $E(\chi^2)=n, D(\chi^2)=2n$
 
+#### 6.3.2 $t-$分布
 
+* 定义
 
+  设 $X\sim N(0, 1), Y\sim\chi^2(n)$ 且 $X, Y$ 独立，令 $t=\frac{X}{\sqrt{\frac Yn}}$，称 $t$ 服从自由度为 $n$ 的 $t-$分布，记作 $t\sim t(n)$
 
+* 密度函数
+  $$
+  f(x)=\frac{\Gamma(\frac{n+1}{2})}{\sqrt{n\pi}\Gamma(\frac n2)}(1+\frac{x^2}{n})^{-\frac{n+1}{2}}
+  $$
+  ![](./images/6-3-2.png)
 
+* 性质
 
+  * $n>1$ 时 $E(t)$ 存在，$E(t)=0$
+  * $n>2$ 时 $D(t)$ 存在，$D(t)=\frac{n}{n-2}$
+  * $n=1$ 时为标准柯西分布，均值不存在
+  * $n\to\infin$ 时趋向于标准正态分布
 
+#### 6.3.3 $F-$分布
 
+* 定义
 
+  设 $U\sim\chi^2(n_1), V\sim\chi^2(n_2)$ 且 $U, V$ 相互独立，令 $F=\frac{U/ n_1}{V/ n_2}$，称 $F$ 服从自由度为 $(n_1, n_2)$ 的 $F-$分布，记作 $F\sim F(n_1, n_2)$
 
+* 密度函数
+  $$
+  f(x)=\begin{cases}\frac{\Gamma(\frac{n_1+n_2}{2})}{\Gamma(\frac{n_1}{2})\Gamma(\frac{n_2}{2})}n_1^{\frac {n_1}{2}}n_2^{\frac{n_2}{2}}\frac{x^{\frac{n_1}{2}-1}}{(n_1x+n_2)^{\frac{n_1+n_2}{2}}} & x>0\\ 0 & x\leqslant 0 \end{cases}
+  $$
+  ![](./images/6-3-3.png)
 
+* 性质
 
+  * $F\sim F(n_1, n_2)$，则 $\frac 1F\sim F(n_2, n_1)$
+  * $t^2=\frac{X^2/1}{Y^2/n}\sim F(1, n)$
+
+* $\alpha-$分位点
+
+  设 $X\sim f(x)$，若 $\forall 0<\alpha<1, \exists x_\alpha$ 满足$P(X\leqslant x_\alpha)=\int_{-\infin}^{x_\alpha}f(x)dx=\alpha$，则称 $x_\alpha$ 为分布密度 $f(x)$ 的 $\alpha$ 分位点
+
+  * $N(0, 1)$ 的 $\alpha$ 分位点记作 $u_\alpha$，$\Phi(u_\alpha)=P(X\leqslant u_\alpha)=\alpha$
+
+    $u_\alpha=-u_{1-\alpha}$
+
+    例：求 $u_{0.975}$，则 $\Phi(u_{0.975})=0.975$，查表得 $u_{0.975}=\cdots$
+
+  * $t(n)$ 的 $\alpha$ 分位点记作 $t_{\alpha}(n)$
+
+    $n\geqslant 30$ 时可以近似认为是标准正态分布，查 $u_\alpha$
+
+  * $\chi^2(n)$ 的 $\alpha$ 分位点记作 $\chi^2_\alpha(n)$
+
+    $n$ 充分大时 $\chi^2_\alpha(n)\approx\frac 12(u_\alpha+\sqrt{2n-1})^2$
+
+  * $F(n_1, n_2)$ 的 $\alpha$ 分位点记为 $F_\alpha(n_1, n_2)$
+
+    三反公式：$F_\alpha(n_1, n_2)=\frac{1}{F_{1-\alpha}(n_2, n_1)}$
+
+#### 6.3.4 抽样分布定理
+
+1. 设 $X_1, X_2, \dots, X_n$ 是来自总体 $X\sim N(\mu, \sigma^2)$ 的样本，则 $\bar X\sim N(\mu, \frac{\sigma^2}{n})$
+
+2. 设 $X_1, X_2, \dots, X_n$ 是来自总体 $X\sim N(\mu, \sigma^2)$ 的样本，则
+
+   * $\frac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1)$
+   * $\bar X, S^2$ 相互独立
+
+3. 设 $X_1, X_2, \dots, X_n$ 是来自总体 $X\sim N(\mu, \sigma^2)$ 的样本，$\bar X, S^2$ 分别为样本均值和方差，则
+   $$
+   \frac{\bar x-\mu}{S/\sqrt n}\sim t(n-1)
+   $$
+   可用 $S^2$ 代替 $\sigma^2$
+
+4. 设 $X_1, X_2, \dots, X_{n_1}$ 是来自总体 $X\sim N(\mu_1, \sigma_1^2)$ 的样本，$Y_1, Y_2, \dots, Y_{n_2}$ 是来自总体 $Y\sim N(\mu_2, \sigma_2^2)$ 的样本，且两样本相互独立，两样本均值与方差为 $\bar X, \bar Y, S_1^2, S_2^2$，则
+   $$
+   \frac{S^2_1/\sigma_1^2}{S_2^2/\sigma_2^2}\sim F(n_1-1, n_2-1)
+   $$
+
+5. 设 $X_1, X_2, \dots, X_{n_1}$ 是来自总体 $X\sim N(\mu_1, \sigma^2)$ 的样本，$Y_1, Y_2, \dots, Y_{n_2}$ 是来自总体 $Y\sim N(\mu_2, \sigma^2)$ 的样本，且两样本相互独立，两样本均值与方差为 $\bar X, \bar Y, S_1^2, S_2^2$，则
+   $$
+   \frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim t(n_1+n_2-2)\\ S_w^2=\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}
+   $$
+
+证明：
+
+1. $\frac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1)$
+
+   $S^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X)^2\Rightarrow\frac{(n-1)S^2}{\sigma^2}=\frac{1}{\sigma^2}\sum_{i=1}^n(X_i-\bar X)^2$
+
+   $(X_i-\bar X)^2=(X_i-\mu+\mu-\bar X)^2=(X_i-\mu)^2+2(X_i-\mu)(\mu-\bar X)+(\mu-\bar X)^2$
+
+   $\therefore \frac{(n-1)S^2}{\sigma^2}$
+
+   $=\frac{1}{\sigma^2}[\sum_{i=1}^n(X_i-\mu)^2+2\sum_{i=1}^n(X_i-\mu)(\mu-\bar X)+\sum_{i=1}^n(\mu-\bar X)^2]$
+
+   $=\frac{1}{\sigma^2}[\sum_{i=1}^n(X_i-\mu)^2+2(\mu-\bar X)\sum_{i=1}^n(X_i-\mu)+n(\mu-\bar X)^2]$
+
+   $=\frac{1}{\sigma^2}[\sum_{i=1}^n(X_i-\mu)^2+2n(\mu-\bar X)(\bar X-\mu)+n(\mu-\bar X)^2]$
+
+   $=\sum_{i=1}^n(\frac{X_i-\mu}{\sigma})^2-(\frac{\bar X-\mu}{\sigma/\sqrt n})^2=\chi^2(n)-\chi^2(1)=\chi^2(n-1)$
+   
+   注：$E(\bar X)=\mu, D(\bar X)=\frac{\sigma^2}{n}$
+   
+2. $\frac{\bar X-\mu}{S/\sqrt n}\sim t(n-1)$
+   $$
+   \frac{\bar X-\mu}{S/\sqrt n}=\frac{\frac{\bar X-\mu}{\sigma/\sqrt n}}{\sqrt{\frac{(n-1)S^2/\sigma^2}{n-1}}}=\frac{N(0, 1)}{\sqrt{\frac{\chi^2(n-1)}{n-1}}}=t(n-1)
+   $$
+
+3. $\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim t(n_1+n_2-2)$
+
+   $\bar X-\bar Y\sim N(\mu_1-\mu_2, \frac{\sigma^2}{n_1}+\frac{\sigma}{n_2})$
+
+   标准化：$\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{\sigma\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim N(0, 1)$
+
+   原式 $=\frac{\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{\sigma\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}}{\frac{S_w}{\sigma}}=\frac{N(0, 1)}{\frac{S_w}{\sigma}}$
+
+   $S_w^2=\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}\Rightarrow\frac{S_w^2}{\sigma^2}=\frac{\frac{(n_1-1)S_1^2}{\sigma^2}+\frac{(n_2-1)S_2^2}{\sigma^2}}{(n_1-1)+(n_2-1)}=\frac{\chi^2(n_1-1)+\chi^2(n_2-1)}{(n_1-1)+(n_2-1)}=\frac{\chi^2(n_1+n_2-2)}{n_1+n_2-2}$
+
+   $\therefore$ 原式 $=\frac{N(0, 1)}{\sqrt{\frac{\chi(n_1+n_2-2)}{n_1+n_2-2}}}=t(n_1+n_2-2)$
+
+---
+
+## 第七章 参数估计
+
+### 7.1 点估计
 
