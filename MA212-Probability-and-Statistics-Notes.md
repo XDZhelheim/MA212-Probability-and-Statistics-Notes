@@ -3607,6 +3607,285 @@ $\forall 0<\alpha<1$，若存在统计量 $\underline\theta$，使得 $\forall \
 
 ### 8.1 假设检验概述
 
+* 例：某车间用一台自动包装机装化肥，每袋的标称重量规定为 50kg。某日开工后，为了检查机器是否正常，随机抽检 9 袋产品，测得重量如下（kg）：
+
+  49.6, 48.4, 50.0, 48.6, 50.6, 49.8, 50.2, 49.2, 49.0
+
+  设每袋化肥的实际重量服从正态分布，标准差为 0.75 kg，问该日包装机是否正常工作
+
+  解：
+
+  设每袋化肥的重量 $X\sim N(\mu, 0,75^2)$，若 $\mu=50$ 则正常
+
+  $\mu$ 的点估计 $\hat\mu=\bar X=49.49\neq 50$，是确实因为机器不正常工作，还是随机波动引起？
+
+  作假设：$H_0:\mu=50$（原假设）$H_1:\mu\neq 50$（备择假设）
+
+  对假设 $H_0$ 进行检验：
+
+  * 接受 $H_0$，则认为机器正常工作
+  * 拒绝 $H_0$，则认为机器不正常工作
+
+  进行显著性检验：
+
+  $H_0:\mu=\mu_0=50, H_1:\mu\neq\mu_0$
+
+  $X_1, X_2, \dots, X_n$ 是总体 $X\sim N(\mu, \sigma_0^2), \sigma_0=0.75$ 的样本，且 $E(\bar X)=\mu, D(\bar X)=\frac{\sigma_0^2}{n}$
+
+  故若 $H_0$ 成立，则 $E(\bar X)=\mu_0$，即 $\bar X$ 的值在 $\mu_0$ 附近波动，且波动幅度不会太大，从而绝对偏差 $|\bar X-\mu_0|$ 应该较小
+
+  反之，若 $|\bar X-\mu_0|$ 的值偏大，则有理由怀疑 $H_0$ 的正确性，从而拒绝 $H_0$
+
+  可以求一临界值 $c$，使得
+
+  * $|\bar X-\mu_0|\geqslant c$，拒绝 $H_0$
+  * $|\bar X-\mu_0|<c$，接受 $H_0$
+
+* 决策的两类错误
+
+  * I 类错误：$H_0$ 为真但拒绝（弃真）
+  * II 类错误：$H_0$ 为假但接受（取伪）
+
+* 检验原则一：对 $H_0$ 采取保护的态度
+
+  $H_0, H_1$ 地位不对等，倾向认为 $H_0$ 是对的
+
+  * I 类风险：$P(拒绝 H_0|H_0 为真)$
+  * II 类风险：$P(接受 H_0|H_0为假)$
+
+  保护 $H_0$，即给定一个较小的数 $0<\alpha<1$，使得 $P(拒绝 H_0|H_0 为真)\leqslant\alpha$，$\alpha$ 称为显著性水平
+
+* 检验原则二：控制 I 类风险（不管 II 类风险）
+
+  接例题：
+
+  $\because E(\bar X)=\mu$，若 $H_0$ 成立，则 $|\bar X-\mu_0|$ 的值应很小
+
+  给定显著性水平 $\alpha=0.05$，即 I 类风险 $P(|\bar X-\mu_0|\geqslant c|\mu=\mu_0)=\alpha$
+  
+  作变换 $P_{H_0}(\frac{|\bar X-\mu_0|}{\sigma_2/\sqrt n}\geqslant \frac{c}{\sigma_0/\sqrt n})=\alpha=0.05$
+  
+  记 $U=\frac{\bar X-\mu_0}{\sigma_2/\sqrt n}\sim N(0, 1)$
+  
+  $\therefore \frac{c}{\sigma_0/\sqrt n}=u_{1-\frac\alpha2}=u_{0.975}=1.96$，即 $|U|\geqslant 1.96$ 时拒绝 $H_0$（拒绝域）
+  
+  计算得 $|U|=\frac{|49.49-50|}{0.75/\sqrt 9}=2.04>1.96$
+  
+  $\therefore$ 拒绝 $H_0$，即认为机器工作不正常（$u$ 检验法）
+  
+  <span style="color:blue">$(\bar X-c, \bar X+c)$ 实际上是 $\mu$ 的 $1-\alpha$ 置信区间</span>
+  
+* 检验原则三：概率反证法
+
+  若想检验某命题成立，则应提出原假设 $H_0$ 为不成立
+
+  样本的先验信息支持什么结论，就把它作为备择假设，反面作为原假设
+
+  例如例题中 $\bar X=49.49\neq 50$ 看上去是不正常的，所以应该假设 $H_0$ 为机器正常
+
+* 单边假设检验
+
+  检验形式如 $\mu\leqslant \mu_0,\mu\geqslant\mu_0$ 的假设
+
+  方法：检验统计量采用临界点处的分布 $(\mu_0=\mu)$
+
+* 假设检验的一般步骤
+
+  1. 根据实际问题提出原假设 $H_0$ 和备择假设 $H_1$
+  2. 求出未知参数的较好的点估计
+  3. 依据点估计构造一个检验统计量，然后分析当 $H_0$ 成立时，该统计量有什么“趋势”，逆这个“趋势”就给出了 $H_0$ 的拒绝域的形式，即 $H_0$ 的拒绝域形式由 $H_1$ 决定
+  4. 对于给定的显著性水平 $\alpha$，按控制 I 类风险的检验原则，确定 $H_0$ 的拒绝域
+  5. 抽样，判断样本观察值是否落在拒绝域内，从而做出接受或拒绝 $H_0$ 的决策
+  
+* 检验 $\mu$ 的步骤
+
+  1. 构造分布 $w$
+
+  2. $\mu=\mu_0$：$w<\frac\alpha 2$ 分位点或 $w>1-\frac\alpha2$ 分位点
+
+     $\mu\leqslant\mu_0$：$w>1-\alpha$ 分位点
+
+     $\mu\geqslant \mu_0$：$w<\alpha$ 分位点
+
+  3. 代入 $\bar X, S^2, \mu_0$ 等值求出 $w$，判断是否在拒绝域内
+
+---
+
+### 8.2 正态总体参数的假设检验
+
+#### 8.2.1 单正态总体的假设检验
+
+* 例 1：设 $X_1, X_2, \dots, X_n$ 为总体 $X\sim N(\mu, \sigma^2)$ 的样本，$\mu, \sigma^2$ 均未知，在显著性水平为 $\alpha$ 下，检验假设：$H_0:\mu=\mu_0, H_1:\mu\neq\mu_0$
+
+  解：
+
+  $H_0$ 为真时 $|\bar X-\mu_0|$ 应较小
+
+  又因为 $\frac{\bar X-\mu_0}{S/\sqrt n}\sim t(n-1)$
+
+  $\therefore P(\frac{|\bar X-\mu_0|}{S/\sqrt n}>t_{1-\frac\alpha2}(n-1)|\mu=\mu_0)=\alpha$
+
+  $\therefore H_0$ 的拒绝域为 $|\bar X-\mu_0|>\frac {S}{\sqrt n}t_{1-\frac\alpha2}(n-1)$
+
+* 例 2：设 $X_1, X_2, \dots, X_n$ 为总体 $X\sim N(\mu, \sigma^2)$ 的样本，$\mu, \sigma^2$ 均未知，在显著性水平为 $\alpha$ 下，检验假设：$H_0:\mu\leqslant\mu_0, H_1:\mu>\mu_0$（单侧假设检验）
+
+  解：
+
+  $H_0$ 为真时 $\bar X-\mu_0$ 偏小于 0
+
+  $\because \frac{\bar X-\mu_0}{S/\sqrt n}\sim t(n-1)$（临界点 $\mu=\mu_0$）
+
+  $\therefore P(\frac{\bar X-\mu_0}{S/\sqrt n}>t_{1-\alpha}(n-1)|\mu=\mu_0)=\alpha$
+
+  $\therefore $ 拒绝域 $\bar X>\mu_0+\frac {S}{\sqrt n}t_{1-\alpha}(n-1)$
+
+* 例 3：$\mu, \sigma^2$ 未知，检验 $H_0:\sigma^2=\sigma_0^2$
+
+  解：
+
+  $S^2$ 是 $\sigma^2$ 的无偏估计，且 $D(S^2)=\frac{2\sigma^4}{n-1}$，故当 $H_0$ 成立时 $S^2$ 的值应在 $\sigma^2$ 附近波动，且幅度不应太大，否则有理由拒绝 $H_0$。当 $H_0$ 为真时：
+  $$
+  \frac{(n-1)S^2}{\sigma_0^2}\sim\chi^2(n-1)
+  $$
+  $\therefore$ 拒绝域 $S^2<\frac{\sigma_0^2}{n-1}\chi^2_{\frac\alpha2}(n-1)$ 或 $S^2>\frac{\sigma_0^2}{n-1}\chi^2_{1-\frac\alpha2}(n-1)$
+
+  检验 $\sigma^2\geqslant \sigma_0^2$ 时的拒绝域：$S^2<\frac{\sigma_0^2}{n-1}\chi^2_{\alpha}(n-1)$，$\sigma^2\leqslant\sigma_0^2$ 的拒绝域：$S^2>\frac{\sigma_0^2}{n-1}\chi^2_{1-\alpha}(n-1)$
+
+* 单正态总体检验时使用的统计量
+
+  * 检验均值（方差已知）
+
+    $\frac{\bar X-\mu_0}{\sigma/\sqrt n}\sim N(0, 1)$
+
+  * 检验均值（方差未知）
+
+    $\frac{\bar X-\mu_0}{S/\sqrt n}\sim t(n-1)$
+
+  * 检验方差（均值未知）
+
+    $\frac{(n-1)S^2}{\sigma_0^2}\sim\chi^2(n-1)$
+
+  * 检验方差（均值已知）
+
+    $\sum_{i=1}^n(\frac{X_i-\mu}{\sigma_0})^2\sim \chi^2(n)$
+
+#### 8.2.2 双正态总体的假设检验
+
+* 检验 $\mu_1=\mu_2$
+
+  1. 若 $\sigma_1^2, \sigma_2^2$ 均未知，则检验要求 $\sigma_1^2=\sigma_2^2=\sigma^2$（方差齐性）
+     $$
+     \frac{|\bar X-\bar Y|}{S_w\sqrt{\frac1{n_1}+\frac1{n_2}}}>t_{1-\frac\alpha2}(n_1+n_2-2)
+     $$
+
+  2. 若 $\sigma_1^2, \sigma_2^2$ 均已知，则统计量取 $U=\frac{\bar X-\bar Y}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}\sim N(0, 1)$
+
+  3. 若总体方差以及是否具有方差齐性均未知，则先检验 $\sigma_1^2=\sigma_2^2$
+
+* 检验 $\sigma_1^2=\sigma_2^2$
+
+  $\frac{S_1^2}{S_2^2}<F_{\frac\alpha2}(n_1-1, n_2-1)$
+
+  单侧 $\sigma_1^2\geqslant \sigma_2^2$：$\frac{S_1^2}{S_2^2}<F_{\alpha}(n_1-1, n_2-1)$
+
+* 常用检验
+
+  1. $\sigma_1^2, \sigma_2^2$ 已知，检验 $\mu_1, \mu_2$
+     $$
+     U=\frac{\bar X-\bar Y}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}\sim N(0, 1)
+     $$
+
+     * $\mu_1=\mu_2$：$|U|>u_{1-\frac\alpha2}$
+     * $\mu_1\leqslant \mu_2$：$U>u_{1-\alpha}$
+     * $\mu_1\geqslant \mu_2$：$U<u_\alpha$
+     
+  2. $\sigma_1^2=\sigma_2^2=\sigma^2$ 检验 $\mu_1, \mu_2$
+     $$
+     t=\frac{|\bar X-\bar Y|}{S_w\sqrt{\frac1{n_1}+\frac1{n_2}}}\sim t(n_1+n_2-2)
+     $$
+  
+     * $\mu_1=\mu_2$：$|t|>t_{1-\frac\alpha2}(n_1+n_2-2)$
+     * $\mu_1\leqslant \mu_2$：$t>t_{1-\alpha}(n_1+n_2-2)$
+     * $\mu_1\geqslant \mu_2$：$t<t_\alpha(n_1+n_2-2)$
+  
+  3. $\sigma_1^2, \sigma_2^2$ 未知，$n_1, n_2$ 充分大
+     $$
+     U=\frac{\bar X-\bar Y}{\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}}}\sim N(0, 1)
+     $$
+  
+  4. $\sigma_1^2, \sigma_2^2$ 未知，$n_1, n_2$ 不够大
+     $$
+     t=\frac{\bar X-\bar Y}{\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}}}\sim t(n_1+n_2-2)
+     $$
+
+---
+
+### 8.3 第八章习题
+
+1. 从甲地发送一个信号到乙地。设乙地接收到的信号值服从正态分布 $N(\mu, 0.2^2)$，其中 $\mu$ 为甲地发送的真实信号值。现甲地重复发送同一信号 5 次，乙地接收到的信号值分别为 0.85, 8.15, 8.20, 8.10, 8.25。设乙地猜测到的信号真实值为 8，问能否接受该猜测？
+
+   解：
+
+   由题意得 $\bar X=8.15$
+
+   $\therefore$ 作假设 $H_0:\mu=\mu_0=8, H_1:\mu\neq\mu_0$
+
+   $\because\frac{\bar X-\mu_0}{\sigma/\sqrt n}\sim N(0, 1)$
+
+   $\therefore H_0$ 的拒绝域为 $\frac{\bar X-\mu_0}{\sigma/\sqrt n}<-u_{1-\frac\alpha2}$ 或 $\frac{\bar X-\mu_0}{\sigma/\sqrt n}>u_{1-\frac\alpha2}$
+
+   取 $\alpha=0.05$，查表得 $u_{1-\frac\alpha2}=u_{0.975}=1.96$
+
+   代入 $\bar X$ 得 $\frac{8.15-8}{0.2/\sqrt5}=1.6771\leqslant1.96$
+
+   $\therefore$ 可以认为信号的真实值是 8
+
+2. 某厂生产的某种铝材的长度服从正态分布，其均值设定为 240cm，现从该厂的产品中抽取 5 件，测得其长度（cm）分别为 239.7, 239.6, 239, 240, 239.2，问该厂的产品是否满足要求
+
+   解：
+
+   由题意 $\bar X=239.5, S^2=0.16$
+
+   $\therefore$ 设 $H_0:\mu=\mu_0=240, H_1:\mu\neq\mu_0$
+
+   $\because \frac{\bar X-\mu_0}{S/\sqrt n}\sim t(4)$
+
+   $\therefore$ 由 $t$ 检验知 $H_0$ 的拒绝域为 $|t|>t_{1-\frac\alpha2}(4)$
+
+   取 $\alpha=0.05$，查表得 $t_{0.975}(4)=2.776$
+
+   代入 $\bar X, S^2$ 得 $t=-2.7951$
+
+   $\therefore |t|>2.776$
+
+   $\therefore$ 拒绝 $H_0$，即认为该厂的产品不满足要求
+
+3. 某类钢板每块的重量 $X$ 服从正态分布，其一项质量指标是钢板重量的方差不能超过 $0.016kg^2$，现从某天是生产的钢板中随机抽取 25 块，得到样本方差 $S^2=0.025kg^2$，问该天生产的钢板是否满足要求
+
+   解：
+
+   作假设 $H_0:\sigma^2\leqslant \sigma_0^2=0.016, H_1:\sigma^2>\sigma_0^2$
+
+   $\because \frac{(n-1)S^2}{\sigma_0^2}\sim\chi^2(24)$
+
+   $\therefore$ 由 $\chi^2$ 检验知 $H_0$ 的拒绝域为 $\chi^2>\chi^2_{1-\alpha}(24)$
+
+   取 $\alpha=0.05$，查表得 $\chi^2_{0.95}(24)=36.415$
+
+   代入 $S^2, \sigma_0^2$ 得 $\chi^2=\frac{24\times0.025}{0.016}=37.5>36.415$
+
+   $\therefore$ 拒绝 $H_0$，即认为该天生产的钢板不满足要求
+
+---
+
+## END
+
+![](./images/end_bella.jpg)
+
+
+
+
+
 
 
 
