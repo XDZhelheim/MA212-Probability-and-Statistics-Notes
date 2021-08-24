@@ -3169,7 +3169,7 @@ $$
 
 3. $\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim t(n_1+n_2-2)$
 
-   $\bar X-\bar Y\sim N(\mu_1-\mu_2, \frac{\sigma^2}{n_1}+\frac{\sigma}{n_2})$
+   $\bar X-\bar Y\sim N(\mu_1-\mu_2, \frac{\sigma^2}{n_1}+\frac{\sigma^2}{n_2})$
 
    标准化：$\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{\sigma\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim N(0, 1)$
 
@@ -3177,11 +3177,467 @@ $$
 
    $S_w^2=\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}\Rightarrow\frac{S_w^2}{\sigma^2}=\frac{\frac{(n_1-1)S_1^2}{\sigma^2}+\frac{(n_2-1)S_2^2}{\sigma^2}}{(n_1-1)+(n_2-1)}=\frac{\chi^2(n_1-1)+\chi^2(n_2-1)}{(n_1-1)+(n_2-1)}=\frac{\chi^2(n_1+n_2-2)}{n_1+n_2-2}$
 
-   $\therefore$ 原式 $=\frac{N(0, 1)}{\sqrt{\frac{\chi(n_1+n_2-2)}{n_1+n_2-2}}}=t(n_1+n_2-2)$
+   $\therefore$ 原式 $=\frac{N(0, 1)}{\sqrt{\frac{\chi^2(n_1+n_2-2)}{n_1+n_2-2}}}=t(n_1+n_2-2)$
 
 ---
 
 ## 第七章 参数估计
 
 ### 7.1 点估计
+
+#### 7.1.1 基本概念
+
+* 总体分布
+
+  设总体 $X\sim F(x; \theta_1, \theta_2, \dots, \theta_m)$，其中 $F$ 的函数形式已知，$\theta_1, \theta_2, \dots, \theta_m$ 为未知参数，$X_1, X_2, \dots, X_n$ 为来自总体 $X$ 的样本。若记 $\theta=(\theta_1, \theta_2, \dots, \theta_m)$，则总体分布记作 $X\sim F(x;\theta)$
+
+* 参数空间
+
+  $\theta$ 的取值范围称为参数空间，记作 $\Theta$
+
+  例：
+
+  * $X\sim P(\lambda), \Theta=\{\lambda|\lambda>0\}$
+  * $X\sim N(\mu, \sigma^2), \Theta=\{(\mu, \sigma^2)|-\infin<\mu<\infin, \sigma>0 \}$（形参空间）
+  * 设某课的成绩 $X\sim N(\mu, \sigma^2)$，则 $\Theta=\{(\mu, \sigma^2)|0\leqslant\mu\leqslant100, 0<\sigma<100 \}$（实参空间）
+
+* $\theta$ 的点估计
+
+  构造一个统计量 $\hat \theta(X_1, X_2, \dots, X_n)$，用统计量观察值 $\hat \theta(X_1, X_2, \dots, X_n)$  作为 $\theta$ 的估计值
+
+  * 称 $\hat \theta(X_1, X_2, \dots, X_n)$ 为 $\theta$ 的估计量
+  * 称 $\hat \theta(x_1, x_2, \dots, x_n)$ 为 $\theta$ 的估计值
+
+  二重性
+
+#### 7.1.2 矩估计法
+
+* 定义
+
+  设总体 $X\sim F(x; \theta_1, \theta_2, \dots, \theta_m)$，$\theta_1, \theta_2, \dots, \theta_m$ 为未知参数，$X_1, X_2, \dots, X_n$ 为来自总体 $X$ 的样本
+
+  设下列总体矩都存在：$a_k=E(X^k), k=1, 2, \dots, m$
+
+  由辛钦大数定律：$A_k=\frac 1n\sum_{i=1}^n X_i^k\xrightarrow{P}E(X^k)=a_k, n\to\infin$
+
+  故当 $n$ 较大时，可认为 $A_k\approx a_k=E(X^k)=\int_{-\infin}^\infin x^k dF(x; \theta_1, \theta_2, \dots, \theta_m)=a_k(\theta_1, \theta_2, \dots, \theta_m)$
+
+  因此，近似认为
+  $$
+  \begin{cases}a_1(\theta_1, \theta_2, \dots, \theta_m)=A_1\\ a_2(\theta_1, \theta_2, \dots, \theta_m)=A_2\\ \vdots\\ a_m(\theta_1, \theta_2, \dots, \theta_m)=A_m \end{cases}
+  $$
+  解方程组得
+  $$
+  \begin{cases}\hat \theta_1=\hat \theta_1(A_1, A_2, \dots, A_m)\\ \hat \theta_2=\hat \theta_2(A_1, A_2, \dots, A_m)\\ \vdots\\\hat \theta_m=\hat \theta_m(A_1, A_2, \dots, A_m) \end{cases}
+  $$
+  称 $(\hat\theta_1, \hat\theta_2, \dots, \hat\theta_m)$ 为 $(\theta_1, \theta_2, \dots, \theta_m)$ 的矩估计量
+
+* 步骤
+
+  1. 求总体矩
+  2. 样本矩代替总体矩
+  3. 解方程求出矩估计值
+
+  一个参数的矩估计可能不唯一，尽量用低阶矩
+
+  一般把 $E(X), D(X)$ 写成参数的函数，然后令 $E(X)=\bar X, D(X)=S^2$ 或者 $\tilde S^2$，然后解方程
+
+  注意解出的 $\hat\theta$ 是否在 $\theta$ 的定义域内
+
+  * 例 1：估计 $EXP(\lambda)$ 的参数 $\lambda$
+
+    解：
+
+    $E(X)=\frac 1\lambda=\bar X\Rightarrow \lambda=\frac 1{\bar X}$
+
+    $D(X)=\frac{1}{\lambda^2}=\tilde S^2\Rightarrow \lambda=\frac{1}{\tilde S}$
+
+    选择低阶矩估计 $\frac 1{\bar X}$
+
+  * 例 2：设总体 $X$ 的均值 $\mu=E(X)$，方差 $\sigma^2=D(X)$ 均存在，$X_1, X_2, \dots, X_n$ 为样本，求未知参数 $\mu, \sigma^2$ 的矩估计
+
+    解：
+
+    $\mu$ 为一阶矩，$\sigma^2$ 为二阶中心矩
+
+    令 $a_1=A_1, a_2=A_2$，即 $\begin{cases}\mu=\bar X\\ \sigma^2=\tilde S^2\end{cases}$
+
+    解得
+
+    $\begin{cases}\hat\mu=\bar X\\\hat\sigma^2=\tilde S^2 \end{cases}$
+
+* 修正的样本方差
+  $$
+  \tilde S^2=\frac{n-1}{n}S^2=\frac 1n\sum_{i=1}^n(X_i-\bar X)^2
+  $$
+
+#### 7.1.3 最大似然估计法
+
+* 定义
+
+  设 $X_1, X_2, \dots, X_n$ 是来自总体 $X\sim f(x;\theta)$ 的样本
+
+  令$L(\theta)=L(\theta;X_1, X_2, \dots, X_n)=\prod_{i=1}^n f(x_i; \theta)$，称 $L(\theta)$ 为似然函数
+
+  若存在统计量 $\hat\theta=\hat\theta(X_1, X_2, \dots, X_n)$ 使得 $L(\hat\theta)=\max_{\theta\in\Theta}L(\theta;X_1, X_2, \dots, X_n)$
+
+  则称 $\hat\theta(X_1, X_2, \dots, X_n)$ 为 $\theta$ 的最大似然估计，简记为 MLE
+
+* 求解步骤
+
+  设 $X_1, X_2, \dots, X_n$ 是来自总体 $X\sim f(x;\theta_1, \theta_2, \dots, \theta_m)$ 的样本
+
+  1. 求似然函数 $L(\theta_1, \theta_2, \dots, \theta_m)=\prod_{i=1}^n f(x_i; \theta_1, \theta_2, \dots, \theta_m)$
+
+     $f(x_1)f(x_2)\cdots$ 连乘
+
+     样本概率函数的非 0 部分
+
+  2. 写似然方程组
+
+     常用对数似然方程组：
+     $$
+     \frac{\partial\ln L(\theta_1, \theta_2, \dots, \theta_m)}{\partial\theta_i}=0, i=1, 2, \dots, m
+     $$
+
+  3. 解方程组得 $\hat\theta_1, \hat\theta_2, \dots, \hat\theta_m$
+
+  4. 验证二阶导 < 0，即 $\frac{\partial^2\ln L}{\partial\theta^2}|_{\theta=\hat\theta}<0$
+
+  * 例 1：设总体服从 $X\sim EXP(\frac 1\theta)$，$X_1, X_2, \dots, X_n$ 是来自总体的样本，求 $\theta$ 的 MLE
+
+    解：
+
+    $L(\theta)=\prod_{i=1}^n\frac1\theta e^{-\frac{x_i}{\theta}}=\theta^{-n}e^{-\frac 1\theta\sum_{i=1}^n x_i}=\theta^{-n}e^{-\frac{n\bar X}{\theta}}$
+
+    $\because L(\theta)$ 与 $\ln L(\theta)$ 具有相同的极值点
+
+    $\ln L(\theta)=-n\ln\theta-\frac{n\bar X}{\theta}$
+
+    $\therefore \frac{d\ln L(\theta)}{d\theta}=-\frac n\theta+\frac{n\bar X}{\theta^2}=0$
+    
+    $\therefore \hat\theta=\bar X$
+    
+  * 例 2：设 $X_1, X_2, \dots, X_n$ 是来自总体 $X\sim N(\mu, \sigma^2)$ 的样本，求 $\mu, \sigma^2$ 的 MLE
+  
+    解：
+  
+    $L(\mu, \sigma^2)=\prod_{i=1}^n\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x_i-\mu)^2}{2\sigma^2}}=(\sqrt{2\pi})^{-n}(\sigma^2)^{-\frac n2}e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2 }$
+    
+    令 $\begin{cases}\frac{\partial \ln L}{\partial\mu}=\frac {1}{\sigma^2}\sum_{i=1}^n(x_i-\mu)=0\\ \frac{\partial \ln L}{\partial(\sigma^2)}=-\frac{n}{2\sigma^2}+\frac{1}{2\sigma^4}\sum_{i=1}^n(x_i-\mu)^2=0 \end{cases}$
+    
+    解得 $\mu=\bar X, \sigma^2=\frac 1n\sum_{i=1}^n(X_i-\bar X)^2=\tilde S^2$
+  
+* MLE 的不变性
+
+  $\hat \theta$ 是 $\theta$ 的 MLE，则对于 $\theta$ 的函数 $g(\theta)$，其 MLE 为 $g(\hat \theta)$
+
+---
+
+### 7.2 估计量的评价标准
+
+1. 无偏性
+
+   设总体 $X\sim F(x;\theta), \theta\in\Theta$。设 $X_1, X_2, \dots, X_n$ 是总体 $X$ 的样本，$\hat\theta$ 为未知参数 $\theta$ 的点估计。若 $\hat\theta$ 的期望存在且 $\forall\theta\in\Theta, E_\theta(\hat\theta)=\theta$，则称 $\hat\theta$ 为 $\theta$ 的无偏估计，否则称为有偏估计。称 $b_n(\hat \theta)=E(\hat\theta)-\theta$ 为估计量 $\hat\theta$ 的偏差
+
+   $b_n(\hat\theta)=0$ 则 $\hat\theta$ 为 $\theta$ 的有偏估计，$\lim_{n\to\infin}b_n(\hat\theta)=0$ 则 $\hat\theta$ 为 $\theta$ 的渐进无偏估计
+
+   直观意义：估计值 $\hat\theta$ 应在真值 $\theta$ 附近波动，否则为有偏
+
+   * $\mu$ 的点估计为 $\bar X, E(\bar X)=\mu$，所以是无偏估计
+
+     $S^2$ 是 $\sigma^2$ 的无偏估计，$\tilde S^2$ 是 $\sigma^2$ 的渐进无偏估计
+
+2. 有效性
+
+   设 $X_1, X_2, \dots, X_n$ 是总体 $X\sim F(x;\theta), \theta\in\Theta$ 的样本，$\hat\theta_1, \hat\theta_2$ 均为 $\theta$ 的无偏估计，即 $\forall\theta\in\Theta, E(\hat\theta_1)=E(\hat\theta_2)=\theta$，若 $\forall\theta\in\Theta$ 有 $D(\hat\theta_1)\leqslant D(\hat\theta_2)$，则称 $\hat\theta_1$ 较 $\hat\theta_2$ 有效
+   
+   * 有效性的含义举例：$X_1, X_2, \dots, X_n$ 为取自某总体的样本，记总体均值为 $\mu$，总体方差为 $\sigma^2$，$\hat\mu_1=X_1, \hat\mu_2=\bar X$ 均为 $\mu$ 的无偏估计（$E(X_1)=\mu$），但是 $D(X_1)=\sigma^2, D(\bar X)=\frac{\sigma^2}{n}$
+   
+     $\therefore \hat\mu_2$ 比 $\hat\mu_1$ 有效，这说明用全部数据的平均估计总体均值比仅用部分数据有效
+   
+3. 相合性（一致性）
+
+   * 定义
+
+     设 $\hat\theta_n=\hat\theta(X_1, X_2,\dots, X_n)$ 是未知参数 $\theta$ 的点估计，若 $\forall\theta\in\Theta$，满足：
+
+     $\forall\varepsilon>0$，有 $\lim_{n\to\infin}P(|\hat\theta_n-\theta|\geqslant\varepsilon)=0$，则称 $\hat\theta_n$ 为 $\theta$ 的相合估计 
+
+     $\hat\theta_n$ 为 $\theta$ 的相合估计 $\Leftrightarrow\hat\theta\xrightarrow{P}\theta, n\to\infin$
+
+     直观意义：样本越多估计值越准
+
+   * 一般结论
+
+     1. 由辛钦大数定律，$\theta$ 的矩估计 $\hat\theta$ 是相合估计
+     2. $\theta$ 的 MLE $\hat\theta$ 一般也为相合估计
+     3. $\hat\theta$ 为无偏估计则一定为相合估计（证明：切比雪夫不等式）
+
+   * 判断相合性
+
+     设 $\hat\theta_n=\hat\theta_n(X_1, X_2, \dots, X_n)$ 为 $\theta$ 的一个估计量，若 $\lim_{n\to\infin} E(\hat\theta_n)=\theta, D(\hat\theta_n)=0$，则 $\hat\theta_n$ 为 $\theta$ 的相合估计。若把依赖于样本量 $n$ 的估计量 $\hat\theta_n$ 看作一个随机变量序列，相合性就是 $\hat\theta_n$ 依概率收敛于 $\theta$，所以证明估计的相合性可应用概率的性质及各种大数定律
+
+---
+
+### 7.3 区间估计
+
+#### 7.3.1 区间估计的概念
+
+* 定义
+
+  设总体 $X\sim F(x;\theta), \theta\in\Theta$，$\forall 0<\alpha<1$，若存在两个统计量 $\underline\theta=\underline\theta(X_1, X_2, \dots, X_n)$，$\overline\theta=\overline\theta(X_1, X_2, \dots, X_n), \underline \theta<\overline \theta$ 使得 $\forall\theta\in\Theta, P(\underline\theta\leqslant\theta\leqslant\overline\theta)\geqslant 1-\alpha$，则称区间 $(\underline\theta, \overline\theta)$ 为 $\theta$ 的置信水平为 $1-\alpha$ 的置信区间，$\underline\theta$ 称为置信下限，$\overline\theta$ 称为置信上限
+  
+  意义：$(\underline\theta, \overline\theta)$ 包含了 $\theta$ 的真值的概率为 $1-\alpha$
+  
+  * 例 1：设 $X_1, X_2, \dots, X_n$ 为来自总体 $X\sim N(\mu, 1)$ 的样本，求 $\mu$ 的置信度为 $1-\alpha$ 的置信区间
+  
+    解：
+  
+    $\mu$ 的无偏估计为 $\bar X$，则有 $P(\bar X-c<\mu<\bar X+c)=1-\alpha$，$c$ 为常数
+  
+    $\because X\sim N(\mu, 1)$
+  
+    $\therefore \frac{\bar X-\mu}{1/\sqrt n}\sim N(0, 1)$
+  
+    $P(\bar X-c<\mu<\bar X+c)=P(|\bar X-\mu|<c)=P(\sqrt n|\bar X-\mu|<\sqrt n c)=1-\alpha$
+  
+    $\therefore P(-\sqrt nc<\sqrt n(\bar X-\mu)<\sqrt nc)=2\Phi(\sqrt nc)-1=1-\alpha$
+  
+    $\therefore \Phi(\sqrt nc)=1-\frac \alpha2$
+  
+    $\therefore \sqrt nc$ 为 $N(0, 1)$ 的 $1-\frac\alpha2$ 分位点，即 $U_{1-\frac \alpha2}$
+  
+    $\therefore c=\frac{U_{1-\frac \alpha2}}{\sqrt n}$
+  
+    $\therefore$ 置信区间为 $(\bar X-\frac{U_{1-\frac \alpha2}}{\sqrt n}, \bar X+\frac{U_{1-\frac \alpha2}}{\sqrt n})$
+  
+* 置信水平也称为置信度
+
+  * 对连续型总体，取 $P(\underline\theta\leqslant\theta\leqslant\overline\theta)= 1-\alpha$
+  * 对离散型总体，取 $P(\underline\theta\leqslant\theta\leqslant\overline\theta)$ 尽可能接近 $1-\alpha$
+
+* 置信区间不唯一
+
+  在保证置信水平不变的条件下，尽可能缩短置信区间的长度，从而提高精度
+
+  通常采用“两边面积相等”的原则确定分位点
+
+  * 例 2：设 $X_1, X_2, \dots, X_n$ 为来自总体 $X\sim N(\mu, \sigma^2)$ 的样本，求 $\mu$ 的置信度为 $1-\alpha$ 的置信区间
+
+    解：
+
+    $\bar X$ 为 $\mu$ 的 MLE 和无偏估计，且 $\frac{\bar X-\mu}{S/\sqrt n}\sim t(n-1)$
+
+    由枢轴法，$\mu$ 的置信度为 $1-\alpha$ 的置信区间由下式决定
+    $$
+    P(\frac{|\bar X-\mu|}{S/\sqrt n}<t_{1-\frac \alpha2}(n-1))=1-\alpha
+    $$
+    $\therefore$ 置信区间为 $(\bar X-\frac {S}{\sqrt n}t_{1-\frac \alpha2}(n-1), \bar X+\frac {S}{\sqrt n}t_{1-\frac \alpha2}(n-1))$
+
+* 求解置信区间：枢轴法
+
+  设 $\theta$ 是待估计的参数，$\varphi$ 为其他的未知参数
+
+  1. 求出 $\theta, \varphi$ 较好的点估计 $\hat\theta, \hat\varphi$
+
+  2. 构造样本函数 $T=T(\theta, \hat\theta,\hat\varphi)\sim f(x)$
+
+     一般运用抽样分布定理
+
+  3. 对于置信水平 $1-\alpha$，由 $f(x)$ 确定两分位点 $x_{1-\frac\alpha2}, x_{\frac\alpha2}$
+
+     使得 $P(x_{\frac\alpha2}<T(\theta, \hat\theta,\hat\varphi)<x_{1-\frac\alpha2})=1-\alpha$
+
+  4. 解出 $\underline\theta, \overline\theta$
+
+  * 例 3：设 $X_1, X_2, \dots, X_n$ 为来自总体 $X\sim N(\mu, \sigma^2)$ 的样本，求 $\sigma^2$ 的置信度为 $1-\alpha$ 的置信区间
+
+    解 1：
+
+    $S^2$ 是 $\sigma^2$ 的一个无偏估计，且 $\frac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1)$
+
+    由枢轴法，$P(\chi^2_{\frac\alpha2}(n-1)<\frac{(n-1)S^2}{\sigma^2}<\chi^2_{1-\frac\alpha2}(n-1))=1-\alpha$
+
+    解得置信区间 $(\frac{(n-1)S^2}{\chi^2_{1-\frac\alpha2}(n-1)}, \frac{(n-1)S^2}{\chi^2_{\frac\alpha2}(n-1)})$
+
+    解 2：
+
+    $S^2$ 是 $\sigma^2$ 的一个无偏估计
+
+    $\frac{S^2}{\sigma^2}$ 在常数 $1$ 附近波动，$\frac{(n-1)S^2}{\sigma^2}$ 在 $n-1$ 附近波动
+
+    $\uparrow$                 $\uparrow$                          $\uparrow$               $\uparrow$
+
+    枢轴变量   枢轴                枢轴变量    枢轴
+
+    且 $\frac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1)$
+
+    $\therefore \frac{(n-1)S^2}{\chi^2(n-1)}\sim\sigma^2$
+
+    改为分位点，即为置信区间
+  
+* 枢轴量法的步骤
+
+  1. 设法构造一个样本和 $\theta$ 的函数 $G=G(X_1, X_2, \dots, X_n;\theta)$，使得 $G$ 的分布不依赖于未知参数，一般称具有这种性质的 $G$ 为枢轴量
+
+  2. 适当选择两常数 $c, d$ 使得对给定的 $0<\alpha<1$ 有 $P(c\leqslant G\leqslant d)=1-\alpha$
+
+     一般 $c, d$ 是两个分位数：$\frac\alpha 2$ 分位数和 $1-\frac\alpha2$ 分位数（等尾置信区间）
+
+  3. 将 $c\leqslant G\leqslant d$ 化简为 $\underline \theta\leqslant \theta\leqslant \overline \theta$
+
+  简单来说，(1) 构造一个分布 (2) 解 $\frac\alpha2$ 分位点 $\leqslant$ 分布 $\leqslant 1-\frac \alpha2$ 分位点
+
+#### 7.3.2 双正态总体参数的区间估计
+
+* 例 4：设 $X_1, X_2, \dots, X_{n_1}$ 为来自总体 $X\sim N(\mu_1, \sigma^2_1)$ 的样本，$Y_1, Y_2, \dots, Y_{n_2}$ 为来自总体 $Y\sim N(\mu_2, \sigma_2^2)$ 的样本，两样本独立，$\sigma_1^2, \sigma_2^2$ 已知，求 $\mu_1-\mu_2$ 的置信水平为 $1-\alpha$ 的置信区间
+
+  解：
+
+  $\bar X, \bar Y$ 分别为 $\mu_1, \mu_2$ 的 MLE 和无偏估计，则
+
+  $\bar X-\bar Y\sim N(\mu_1-\mu_2, \frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2})$
+
+  $\therefore \frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}\sim N(0, 1)$
+
+  枢轴法得置信区间 $((\bar X-\bar Y)-U_{1-\frac \alpha2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}, (\bar X-\bar Y)+U_{1-\frac \alpha2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}})$
+
+* 例 5：设 $X_1, X_2, \dots, X_{n_1}$ 为来自总体 $X\sim N(\mu_1, \sigma^2)$ 的样本，$Y_1, Y_2, \dots, Y_{n_2}$ 为来自总体 $Y\sim N(\mu_2, \sigma^2)$ 的样本，两样本独立，$\mu_1, \mu_2, \sigma^2$ 未知，求 $\mu_1-\mu_2$ 的置信水平为 $1-\alpha$ 的置信区间
+
+  解：
+
+  $\bar X, \bar Y$ 分别为 $\mu_1, \mu_2$ 的 MLE 和无偏估计
+
+  $S_1^2=\frac{1}{n_1-1}\sum_{i=1}^{n_1}(X_i-\bar X)$ 是总体 $N(\mu_1, \sigma^2)$ 的参数 $\sigma^2$ 的无偏估计
+  
+  $S_2^2=\frac{1}{n_2-1}\sum_{i=1}^{n_2}(Y_i-\bar Y)$ 是总体 $N(\mu_2, \sigma^2)$ 的参数 $\sigma^2$ 的无偏估计
+  
+  作 $S_1^2, S_2^2$ 的加权平均：$S_w^2=\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}$，则 $S_w^2$ 为 $\sigma^2$ 的无偏估计
+  
+  $\therefore \frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim t(n_1+n_2-2)$，故 $\mu_1-\mu_2$ 的置信水平为 $1-\alpha$ 的置信区间为
+  
+  $(\bar X-\bar Y\pm t_{1-\frac \alpha2}(n_1+n_2-2)S_w\sqrt{\frac 1{n_1}+\frac 1{n_2}})$（对称区间的简单表示）
+  
+* 例 6：设 $X_1, X_2, \dots, X_{n_1}$ 为来自总体 $X\sim N(\mu_1, \sigma^2_1)$ 的样本，$Y_1, Y_2, \dots, Y_{n_2}$ 为来自总体 $Y\sim N(\mu_2, \sigma_2^2)$ 的样本，两样本独立，$\mu_1, \mu_2, \sigma_1^2, \sigma_2^2$ 均未知，求 $\frac{\sigma_1^2}{\sigma_2^2}$ 的置信水平为 $1-\alpha$ 的置信区间
+
+  解：
+
+  $S_1^2, S_2^2$ 分别为 $\sigma_1^2, \sigma_2^2$ 的无偏估计，由题设条件与抽样分布定理得
+
+  $\frac{S_1^2/S_2^2}{\sigma_1^2/\sigma_2^2}\sim F(n_1-1, n_2-1)$
+
+  $\therefore$ 置信区间为 $(\frac{S_1^2}{S_2^2}\cdot\frac{1}{F_{1-\frac\alpha2}(n_1-1, n_2-1)}, \frac{S_1^2}{S_2^2}\cdot\frac{1}{F_{\frac\alpha2}(n_1-1, n_2-1)})$
+
+#### 7.3.3 大样本下非正态总体参数的区间估计
+
+* 例 7：设 $X_1, X_2, \dots, X_n$ 为来自总体 $X$ 的样本，$E(X)=\mu, D(X)=\sigma^2$，求 $\mu$ 置信水平为 $1-\alpha$ 的置信区间
+
+  解：
+
+  由中心极限定理，$n$ 充分大时 $\frac{\bar X-\mu}{\sigma/\sqrt n}$ 近似服从 $N(0, 1)$
+
+  若 $\sigma$ 未知，因 $S^2\xrightarrow{P}\sigma^2$，则 $\frac{\bar X-\mu}{S/\sqrt n}$ 近似服从 $N(0, 1)$
+
+  $\therefore \mu$ 的置信水平为 $1-\alpha$ 的近似置信区间为 $(\bar X-\frac{S}{\sqrt n}U_{1-\frac\alpha2}, \bar X+\frac{S}{\sqrt n}U_{1-\frac\alpha2})$
+
+#### 7.3.4 单侧置信区间
+
+$\forall 0<\alpha<1$，若存在统计量 $\underline\theta$，使得 $\forall \theta\in\Theta$，有 $P(\underline \theta<\theta)=1-\alpha$，则称 $(\underline \theta, \infin)$ 为 $\theta$ 的置信水平为 $1-\alpha$ 的单侧置信区间，称 $\underline \theta$ 为单侧置信下限
+
+同理 $(-\infin, \overline \theta)$ 为单侧置信区间，$\overline \theta$ 为单侧置信上限
+
+#### 7.3.5 常用枢轴量
+
+* 单正态总体
+  * 已知 $\sigma^2$ 估计 $\mu$：$-U_{1-\frac\alpha2}<\frac{\bar X-\mu}{\sigma/\sqrt n}<U_{1-\frac\alpha2}$
+  * 未知 $\sigma^2$ 估计 $\mu$：$-t_{1-\frac\alpha2}(n-1)<\frac{\bar X-\mu}{S/\sqrt n}<t_{1-\frac\alpha2}(n-1)$
+  * 未知 $\mu$ 估计 $\sigma^2$：$\chi^2_{\frac\alpha2}(n-1)<\frac{(n-1)S^2}{\sigma^2}<\chi^2_{1-\frac\alpha2}(n-1)$
+  * 已知 $\mu$ 估计 $\sigma^2$：$\chi^2_{\frac\alpha2}(n)<\sum_{i=1}^n(\frac{X_i-\mu}{\sigma})^2<\chi^2_{1-\frac\alpha2}(n)$
+* 双正态总体
+  * 已知 $\sigma_1^2, \sigma_2^2$ 估计 $\mu_1-\mu_2$：$-U_{1-\frac\alpha2}<\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}<U_{1-\frac\alpha2}$
+  * 未知 $\sigma^2$ 估计 $\mu_1-\mu_2$：$-t_{1-\frac\alpha2}(n_1+n_2-2)<\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}<t_{1-\frac\alpha2}(n_1+n_2-2)$
+  * 未知 $\mu_1, \mu_2$ 估计 $\frac{\sigma_1^2}{\sigma_2^2}$：$F_{\frac\alpha2}(n_1-1, n_2-1)<\frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2}<F_{1-\frac\alpha2}(n_1-1, n_2-1)$
+
+---
+
+### 7.4 第七章习题
+
+1. $X_1, X_2, \dots, X_n$ 是来自 $X\sim U(a, b)$ 的样本，$a, b$ 为未知参数，求点估计
+
+   解：两个参数，需要用二阶矩
+
+   均匀分布 $E(X)=\frac{a+b}{2}, D(X)=\frac{(b-a)^2}{12}$
+   
+   得 $a=E(X)-\sqrt{3D(X)}, b=E(X)+\sqrt{3D(X)}$
+   
+   用 $\bar X, \tilde S$ 代换，解得 $\begin{cases}\hat a=\bar X-\sqrt 3\tilde S\\\hat b=\bar X+\sqrt 3\tilde S\end{cases}$
+   
+2. 一个试验有三种结果，概率为 $p_1=\theta^2, p_2=2\theta(1-\theta), p_3=(1-\theta)^2$
+
+   现做了 $n$ 次试验，观测到三种结果发生的次数分别为 $n_1, n_2, n_3\ (n_1+n_2+n_3=n)$，求 $\theta$ 的 MLE
+
+   解：
+
+   $L(\theta)$ 意义是得到样本的概率
+   
+   $L(\theta)=(\theta^2)^{n_1}\cdot[2\theta(1-\theta)]^{n_2}\cdot[(1-\theta)^2]^{n_3}=2^{n_2}\cdot \theta^{2n_1+n_2}\cdot(1-\theta)^{n_2+2n_3}$
+   
+   $\ln L=n_2\ln 2+(2n_1+n_2)\ln\theta+(n_2+2n_3)\ln(1-\theta)$
+   
+   $\therefore \frac{d\ln L}{d\theta}=\frac{2n_1+n_2}{\theta}-\frac{n_2+2n_3}{1-\theta}$
+   
+   令 $\frac{d\ln L}{d\theta}=0$ 得 $\hat\theta=\frac{2n_1+n_2}{2n}$
+   
+   检查二阶导：$\theta=\hat\theta$ 时 $\frac{d^2\ln L}{d\theta^2}<0$，是极大值点
+   
+3. 设 $X_1, X_2, \dots, X_n$ 是来自总体 $X\sim U(0, \theta)$ 的样本，求 $\theta$ 的 MLE
+
+   解：
+
+   $L(\theta)=\frac{1}{\theta^n}\prod_{i=1}^n I_{\{0<X_i<\theta\}}=\frac{1}{\theta^n}I_{\{X_{(n)}<\theta\}}$
+
+   若使 $L(\theta)$ 最大，首先示性函数 $I$ 取值应为 1，其次 $\frac{1}{\theta^n}$ 尽可能大，即 $\theta$ 尽可能小
+
+   但是示性函数为 1 决定了 $\theta$ 不能小于 $X_{(n)}$，所以 $\hat \theta=X_{(n)}$
+
+---
+
+## 第八章 假设检验
+
+### 8.1 假设检验概述
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
